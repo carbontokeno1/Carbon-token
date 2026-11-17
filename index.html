@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1020"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="CARBON TOKEN"><link rel="manifest" href="?asset=manifest"><title>CARBON TOKEN · กระเป๋าของฉัน</title>
+<style>
+:root{color-scheme:dark;--bg:#080e1b;--panel:#111c30;--line:#263750;--txt:#eff5ff;--muted:#94a6c2;--green:#4be0aa;--gold:#f4bd55;--blue:#83b5ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1c3850 0,transparent 52%),var(--bg);color:var(--txt);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input{font:inherit}button{border:0;border-radius:13px;padding:13px 17px;background:var(--green);color:#071a15;font-weight:800;cursor:pointer}button:disabled{opacity:.5}.secondary{background:#263751;color:var(--txt)}.wrap{max-width:900px;margin:auto;padding:20px 16px 100px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 24px}.brand{display:flex;gap:11px;align-items:center}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(140deg,var(--gold),var(--green));color:#0b1c18;display:grid;place-items:center;font-size:18px;font-weight:950}.brand h1{font-size:17px;margin:0;letter-spacing:.4px}.brand p{font-size:11px;color:var(--muted);margin:2px 0 0}.panel{background:linear-gradient(150deg,#172740,#101a2c);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 20px 55px #0003}.login{max-width:430px;margin:9vh auto}.muted{color:var(--muted)}.small{font-size:12px}.field{display:grid;gap:7px;margin:14px 0}.field label{font-size:13px;color:#c6d3e6}.field input{width:100%;border:1px solid var(--line);background:#091426;color:white;border-radius:12px;padding:14px;outline:none}.field input:focus{border-color:var(--green)}.status{min-height:24px;color:var(--gold);font-size:13px;margin-top:10px}.hidden{display:none!important}.hero{background:linear-gradient(135deg,#183e3b,#132c3b 65%,#26354b);border:1px solid #35685e;border-radius:24px;padding:24px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:230px;height:230px;border-radius:50%;border:1px solid #ffffff18;right:-90px;top:-100px;box-shadow:0 0 0 25px #ffffff08,0 0 0 55px #ffffff05}.eyebrow{font-size:12px;color:#b5e9d7}.balance{font-size:clamp(36px,9vw,56px);font-weight:850;letter-spacing:-1.7px;margin:7px 0 0;overflow-wrap:anywhere}.unit{font-size:15px;color:#b6d5cb}.balancefoot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;color:#c8e2d9;font-size:12px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}.stat{background:#111d30;border:1px solid var(--line);border-radius:17px;padding:15px;min-width:0}.stat span{display:block;color:var(--muted);font-size:11px}.stat strong{display:block;font-size:19px;margin-top:6px;overflow-wrap:anywhere}.tabs{display:flex;gap:8px;overflow:auto;padding:4px 0 12px;scrollbar-width:none}.tabs button{white-space:nowrap;background:#1b2a41;color:#c6d3e6;padding:10px 14px;font-size:13px}.tabs button.active{background:var(--green);color:#061a14}.section{display:none}.section.active{display:block}.section h2{font-size:17px;margin:0 0 14px}.list{display:grid;gap:9px}.item{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#0d192b;border:1px solid #22334b;border-radius:14px;padding:13px}.item strong{font-size:13px}.item small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.amount{font-weight:800;white-space:nowrap}.plus{color:var(--green)}.minus{color:#ff9b9b}.pill{font-size:10px;border-radius:30px;padding:4px 8px;background:#263a50;color:#cde0f8}.notice{background:#352c1c;border:1px solid #67512a;color:#ffe0a0;border-radius:14px;padding:13px;font-size:12px;margin-top:14px}.empty{text-align:center;padding:28px 12px;color:var(--muted);font-size:13px}.foot{text-align:center;color:#71839e;font-size:11px;margin:24px 0}.bottom{position:fixed;bottom:0;left:0;right:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#091321eF;border-top:1px solid #24344b;backdrop-filter:blur(16px);display:flex;justify-content:center;z-index:3}.bottom button{max-width:870px;width:100%}
+@media(max-width:600px){.wrap{padding:14px 13px 100px}.panel{padding:17px}.cards{gap:8px}.stat{padding:12px}.stat strong{font-size:16px}.top{margin-bottom:17px}.hero{padding:21px}.top>button{padding:10px 12px}}
+</style></head><body><div class="wrap">
+<header class="top"><div class="brand"><div class="logo">C</div><div><h1>CARBON TOKEN</h1><p>CARBON ECONOMY · MEMBER WALLET</p></div></div><button id="logout" class="secondary hidden">ออกจากระบบ</button></header>
+<div id="login" class="panel login"><div class="eyebrow">WELCOME TO CARBON ECONOMY</div><h2 style="font-size:24px;margin:5px 0">กระเป๋า CARBX ของคุณ</h2><p class="muted" style="font-size:13px">เข้าสู่ระบบหรือสมัครสมาชิกด้วยอีเมล ระบบจะส่งลิงก์ยืนยันให้คุณ</p>
+<div class="field"><label>ชื่อที่ใช้แสดง (กรอกเมื่อต้องการสมัครใหม่)</label><input id="name" maxlength="80" placeholder="ชื่อของคุณ"></div>
+<div class="field"><label>อีเมล</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com"></div>
+<button id="send" style="width:100%">เข้าสู่ระบบ / สมัครสมาชิก</button><div id="loginmsg" class="status" role="status"></div><div class="notice">ระบบยังอยู่ในช่วงเริ่มต้น CARBX เป็นเครดิตภายในระบบ ไม่ใช่เหรียญที่ซื้อขายหรือถอนเป็นเงินสดได้ในขณะนี้</div></div>
+<main id="app" class="hidden">
+<div class="hero"><div class="eyebrow">ยอดคงเหลือในกระเป๋าของฉัน</div><div class="balance" id="balance">—</div><div class="unit">CARBX</div><div class="balancefoot"><span id="member">สมาชิก CARBON TOKEN</span><span id="memberstatus">สถานะ: —</span></div></div>
+<div class="cards"><div class="stat"><span>ยอดพร้อมใช้</span><strong id="available">—</strong></div><div class="stat"><span>ยอดล็อก</span><strong id="locked">—</strong></div><div class="stat"><span>คาร์บอนที่ลดได้*</span><strong id="co2">—</strong></div></div>
+<div class="tabs"><button class="active" data-tab="activity">กิจกรรม</button><button data-tab="transfer">โอน CARBX</button><button data-tab="impact">สิ่งแวดล้อม</button><button data-tab="profile">บัญชีของฉัน</button></div>
+<section id="activity" class="section active panel"><h2>ประวัติ CARBX</h2><div id="activitylist" class="list"><div class="empty">กำลังโหลดข้อมูล…</div></div></section>
+<section id="transfer" class="section panel"><h2>โอน CARBX ให้สมาชิก</h2><p class="muted small">โอนภายในกระเป๋าสมาชิกเท่านั้น ไม่มีค่าธรรมเนียมในระยะทดลอง และไม่ใช่การแลกเป็นเงินสดหรือซื้อขายบน Exchange</p><div class="notice" id="transferNotice">กำลังตรวจสอบสถานะระบบโอน…</div><div class="field"><label>อีเมลผู้รับที่ลงทะเบียนและได้รับอนุมัติแล้ว</label><input id="transferRecipient" type="email" autocomplete="off" placeholder="member@example.com"></div><div class="field"><label>จำนวน CARBX</label><input id="transferAmount" type="number" min="0.00000001" step="0.00000001" inputmode="decimal" placeholder="0.00"></div><button id="transferButton" disabled>ระบบโอนยังไม่เปิด</button><div id="transferMsg" class="status" role="status"></div></section>
+<section id="impact" class="section panel"><h2>ผลงานด้านพลังงานและสิ่งแวดล้อม</h2><div class="cards"><div class="stat"><span>ไฟฟ้าที่ผลิตได้</span><strong id="energy">—</strong></div><div class="stat"><span>ไฟฟ้าส่งออก</span><strong id="exported">—</strong></div><div class="stat"><span>ลด CO₂e โดยประมาณ</span><strong id="impactco2">—</strong></div></div><div id="installations" class="list"></div><p class="muted small">*ข้อมูลการลดคาร์บอนเป็นค่าประมาณตามข้อมูลที่ระบบได้รับ ไม่ใช่ใบรับรองคาร์บอนเครดิต</p></section>
+<section id="profile" class="section panel"><h2>บัญชีของฉัน</h2><div class="list"><div class="item"><div><small>ชื่อสมาชิก</small><strong id="pname">—</strong></div></div><div class="item"><div><small>อีเมล</small><strong id="pemail">—</strong></div></div><div class="item"><div><small>วันที่สมัคร</small><strong id="pdate">—</strong></div></div><div class="item"><div><small>รหัสสมาชิก</small><strong id="pid">—</strong></div></div></div><div class="notice">ระบบเปิดดูข้อมูลส่วนตัวของบัญชีที่เข้าสู่ระบบเท่านั้น การแลกคืนและซื้อขายยังปิดใช้งาน ส่วนการโอนจะขึ้นอยู่กับสถานะที่เจ้าของระบบอนุมัติ</div></section>
+<div class="foot">CARBON TOKEN · CARBX · Member portal</div></main></div>
+<div id="bottom" class="bottom hidden"><button id="refresh">↻ อัปเดตข้อมูลล่าสุด</button></div>
+<script type="module" nonce="__NONCE__">
+import {createClient} from "https://esm.sh/@supabase/supabase-js@2.89.0";
+const supabase=createClient("https://vtsddxqzseiiavmfykzi.supabase.co","sb_publishable_YCpHzKizttnDaZr1PqdjHg_NMzvANxD",{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true},db:{schema:"happy_carbon"}});
+const db=supabase.schema("happy_carbon"),$=id=>document.getElementById(id);
+const fmt=n=>Number(n||0).toLocaleString("th-TH",{maximumFractionDigits:4});
+const date=v=>v?new Date(v).toLocaleDateString("th-TH",{year:"numeric",month:"short",day:"numeric"}):"—";
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function status(id,t,bad=false){$(id).textContent=t;$(id).style.color=bad?"#ff9b9b":"#f4bd55"}
+async function showSession(session){
+ if(!session){$("login").classList.remove("hidden");$("app").classList.add("hidden");$("logout").classList.add("hidden");$("bottom").classList.add("hidden");return}
+ $("login").classList.add("hidden");$("app").classList.remove("hidden");$("logout").classList.remove("hidden");$("bottom").classList.remove("hidden");
+ await loadData(session.user);
+}
+function setMemberGate(message){
+ let gate=$("memberGate");
+ if(!gate){gate=document.createElement("div");gate.id="memberGate";gate.className="notice";$("app").prepend(gate)}
+ gate.textContent=message;
+ document.querySelectorAll("#app > .hero, #app > .cards, #app > .tabs, #app > .section, #app > .foot").forEach(el=>el.classList.add("hidden"));
+}
+function clearMemberGate(){
+ const gate=$("memberGate");if(gate)gate.remove();
+ document.querySelectorAll("#app > .hero, #app > .cards, #app > .tabs, #app > .section, #app > .foot").forEach(el=>el.classList.remove("hidden"));
+}
+async function loadData(user){
+ const uid=user.id;
+ const profile=await db.from("member_profiles").select("user_id,display_name,email,member_status,created_at").eq("user_id",uid).maybeSingle();
+ if(profile.error)throw profile.error;
+ const p=profile.data||{};
+ if(p.member_status!=="active"){
+  const note=p.member_status==="suspended"?"บัญชีสมาชิกนี้ถูกระงับการใช้งาน กรุณาติดต่อฝ่ายบริการสมาชิก":p.member_status==="closed"?"บัญชีสมาชิกนี้ถูกปิดแล้ว กรุณาติดต่อฝ่ายบริการสมาชิก":"ลงทะเบียนสำเร็จแล้ว · บัญชีของคุณอยู่ระหว่างรอเจ้าของระบบอนุมัติ เมื่อได้รับอนุมัติแล้วจึงจะเปิดดูยอด CARBX และข้อมูลสมาชิกได้";
+  setMemberGate(note);return;
+ }
+ clearMemberGate();
+ const [wallet,tx,rewards,impacts,energy,inst,transferState]=await Promise.all([
+ db.from("token_wallets").select("available_balance,locked_balance").eq("member_id",uid).maybeSingle(),
+ db.from("token_transactions").select("id,transaction_type,direction,amount,status,description,created_at").eq("member_id",uid).order("created_at",{ascending:false}).limit(30),
+ db.from("reward_ledger").select("id,event_type,points,status,description,created_at").eq("member_id",uid).order("created_at",{ascending:false}).limit(30),
+ db.from("carbon_impacts").select("estimated_co2e_kg,certification_status,calculated_at").eq("member_id",uid).order("calculated_at",{ascending:false}).limit(100),
+ db.from("energy_readings").select("generated_kwh,exported_kwh,period_start,verification_status").eq("member_id",uid).order("period_start",{ascending:false}).limit(100),
+ db.from("installations").select("installation_code,system_type,system_size_kw,installed_at,commissioning_status").eq("member_id",uid).order("created_at",{ascending:false}).limit(20),
+ db.rpc("member_wallet_transfer_status")
+ ]);
+ for(const x of [wallet,tx,rewards,impacts,energy,inst,transferState])if(x.error)throw x.error;
+ const transferEnabled=transferState.data===true;
+ $("transferNotice").textContent=transferEnabled?"ระบบโอนภายในเปิดใช้งานแล้ว · ตรวจสอบอีเมลและยอดก่อนยืนยันทุกครั้ง":"ระบบโอนยังปิดอยู่ · ยอด CARBX ของคุณยังปลอดภัย และยังไม่มีการโอนเกิดขึ้น";
+ $("transferButton").disabled=!transferEnabled;$("transferButton").textContent=transferEnabled?"ตรวจสอบและโอน CARBX":"ระบบโอนยังไม่เปิด";
+ const w=wallet.data||{};
+ $("balance").textContent=fmt(w.available_balance);$("available").textContent=fmt(w.available_balance);$("locked").textContent=fmt(w.locked_balance);
+ $("member").textContent=p.display_name||user.email||"สมาชิก CARBON TOKEN";$("memberstatus").textContent="สถานะ: "+(p.member_status||"รอตรวจสอบ");
+ $("pname").textContent=p.display_name||"—";$("pemail").textContent=p.email||user.email||"—";$("pdate").textContent=date(p.created_at);$("pid").textContent=uid;
+ const all=[...(tx.data||[]).map(x=>({...x,kind:"token"})),...(rewards.data||[]).map(x=>({...x,kind:"reward",amount:x.points,direction:"in",transaction_type:x.event_type}))].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+ $("activitylist").innerHTML=all.length?all.map(x=>'<div class="item"><div><strong>'+esc(x.description||x.transaction_type||"กิจกรรม CARBX")+'</strong><small>'+esc(date(x.created_at))+' · '+esc(x.status||"บันทึกแล้ว")+'</small></div><div class="amount '+(x.direction==="in"?"plus":"")+'">'+(x.direction==="in"?"+":"")+fmt(x.amount)+' CARBX</div></div>').join(""):'<div class="empty">ยังไม่มีประวัติรายการในกระเป๋า</div>';
+ const co2=(impacts.data||[]).reduce((a,x)=>a+Number(x.estimated_co2e_kg||0),0),gen=(energy.data||[]).reduce((a,x)=>a+Number(x.generated_kwh||0),0),exp=(energy.data||[]).reduce((a,x)=>a+Number(x.exported_kwh||0),0);
+ $("co2").textContent=fmt(co2)+" kg";$("impactco2").textContent=fmt(co2)+" kg";$("energy").textContent=fmt(gen)+" kWh";$("exported").textContent=fmt(exp)+" kWh";
+ $("installations").innerHTML=(inst.data||[]).length?(inst.data||[]).map(x=>'<div class="item"><div><strong>'+esc(x.installation_code||x.system_type||"ระบบพลังงาน")+'</strong><small>'+esc(x.system_type||"")+" · "+esc(x.installed_at||"ยังไม่ระบุวันติดตั้ง")+'</small></div><span class="pill">'+esc(x.commissioning_status||"รอตรวจสอบ")+'</span></div>').join(""):'<div class="empty">ยังไม่มีข้อมูลระบบติดตั้งที่ผูกกับบัญชีนี้</div>';
+}
+$("send").addEventListener("click",async()=>{
+ const email=$("email").value.trim().toLowerCase(),name=$("name").value.trim();
+ if(!email||!email.includes("@")){status("loginmsg","กรุณากรอกอีเมลให้ถูกต้อง",true);return}
+ status("loginmsg","กำลังส่งลิงก์เข้าสู่ระบบ…");
+ const {error}=await supabase.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:location.href.split("#")[0],data:name?{display_name:name}:{}}});
+ status("loginmsg",error?"ส่งลิงก์ไม่สำเร็จ: "+error.message:"ส่งลิงก์แล้ว กรุณาเปิดอีเมลและกดยืนยันเพื่อเข้าใช้งาน");
+});
+$("logout").addEventListener("click",async()=>{await supabase.auth.signOut();location.reload()});
+$("refresh").addEventListener("click",async()=>{try{const {data:{user}}=await supabase.auth.getUser();if(user)await loadData(user)}catch(e){alert("โหลดข้อมูลไม่สำเร็จ: "+e.message)}});
+$("transferButton").addEventListener("click",async()=>{const email=$("transferRecipient").value.trim().toLowerCase(),amount=Number($("transferAmount").value);if(!email.includes("@")||!(amount>0)||!Number.isFinite(amount)||Math.round(amount*1e8)!==amount*1e8){status("transferMsg","กรุณาตรวจสอบอีเมลและจำนวน CARBX (ทศนิยมไม่เกิน 8 ตำแหน่ง)",true);return}if(!confirm("ยืนยันโอน "+fmt(amount)+" CARBX ไปยัง "+email+" ? รายการที่ยืนยันแล้วไม่สามารถยกเลิกเองได้"))return;const btn=$("transferButton");btn.disabled=true;try{const {data,error}=await db.rpc("member_transfer",{p_recipient_email:email,p_amount:amount,p_idempotency_key:crypto.randomUUID()});if(error)throw error;if(data?.status!=="posted"&&data?.status!=="already_processed")throw new Error("ระบบยังไม่ยืนยันรายการ");status("transferMsg","โอนสำเร็จ · "+fmt(amount)+" CARBX · บันทึกประวัติแล้ว");$("transferRecipient").value="";$("transferAmount").value="";const {data:{user}}=await supabase.auth.getUser();if(user)await loadData(user)}catch(e){status("transferMsg","โอนไม่สำเร็จ: "+e.message,true)}finally{btn.disabled=false;const {data}=await db.rpc("member_wallet_transfer_status");btn.disabled=data!==true}});
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".section").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab))}));
+supabase.auth.onAuthStateChange((_event,session)=>{if("serviceWorker" in navigator){navigator.serviceWorker.register(new URL("?asset=sw",location.href).href,{scope:location.pathname}).catch(e=>console.warn("Offline shell unavailable",e))}
+setTimeout(()=>showSession(session).catch(e=>alert("โหลดข้อมูลไม่สำเร็จ: "+e.message)),0)});
+const {data:{session}}=await supabase.auth.getSession();if(session)await showSession(session);
+</script></body></html>
