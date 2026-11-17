@@ -6,22 +6,81 @@
 @media(max-width:600px){.wrap{padding:14px 13px 100px}.panel{padding:17px}.cards{gap:8px}.stat{padding:12px}.stat strong{font-size:16px}.top{margin-bottom:17px}.hero{padding:21px}.top>button{padding:10px 12px}}
 </style></head><body><div class="wrap">
 <header class="top"><div class="brand"><div class="logo">C</div><div><h1>CARBON TOKEN</h1><p>CARBON ECONOMY · MEMBER WALLET</p></div></div><button id="logout" class="secondary hidden">ออกจากระบบ</button></header>
-<div id="login" class="panel login"><div class="eyebrow">WELCOME TO CARBON ECONOMY</div><h2 style="font-size:24px;margin:5px 0">กระเป๋า CARBX ของคุณ</h2><p class="muted" style="font-size:13px">เข้าสู่ระบบหรือสมัครสมาชิกด้วยอีเมลและรหัสผ่าน</p>
-<div class="field"><label>ชื่อที่ใช้แสดง (กรอกเมื่อต้องการสมัครใหม่)</label><input id="name" maxlength="80" placeholder="ชื่อของคุณ"></div>
-<div class="field"><label>อีเมล</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com"></div>
-<div class="field"><label>รหัสผ่าน</label><input id="password" type="password" autocomplete="current-password" placeholder="อย่างน้อย 8 ตัวอักษร"></div>
+<div id="login" class="panel login">
+<div class="eyebrow">WELCOME TO CARBON ECONOMY</div>
+<h2 style="font-size:24px;margin:5px 0">เลือกช่องทางเข้าสู่ระบบ</h2>
+<p class="muted" style="font-size:13px">แยกพื้นที่ใช้งานระหว่างสมาชิกและผู้ดูแลระบบ</p>
+<div id="portalChoice" style="display:grid;gap:12px;margin-top:20px">
+<button id="memberPortalBtn" style="width:100%;text-align:left;padding:18px;background:linear-gradient(120deg,#174b43,#1b6656);color:#eafff7"><strong style="font-size:16px">เข้าสู่ระบบสมาชิก</strong><span style="display:block;font-size:12px;font-weight:500;margin-top:5px;color:#c9f4e6">กระเป๋า CARBX · ประวัติ · โอน · ข้อมูลพลังงาน</span></button>
+<button id="adminPortalBtn" class="secondary" style="width:100%;text-align:left;padding:18px;border:1px solid #b88a3e"><strong style="font-size:16px;color:#f5ca78">เข้าสู่ระบบผู้ดูแล</strong><span style="display:block;font-size:12px;font-weight:500;margin-top:5px;color:#c6d3e6">จัดการโครงการ · ใบรับรอง · ตรวจสอบทะเบียน</span></button>
+</div>
+<div id="loginForm" class="hidden">
+<button id="backPortalBtn" class="secondary" style="padding:8px 12px;margin:14px 0 4px">← กลับไปเลือกช่องทาง</button>
+<div id="portalHeading" class="eyebrow" style="margin-top:8px">MEMBER LOGIN</div>
+<h2 id="portalTitle" style="font-size:21px;margin:4px 0 10px">เข้าสู่ระบบสมาชิก</h2>
+<div class="field" id="nameField"><label>ชื่อที่ใช้แสดง (กรอกเมื่อต้องการสมัครใหม่)</label><input id="name" maxlength="80" placeholder="ชื่อของคุณ"></div>
+<div class="field"><label>อีเมล</label><input id="email" type="email" autocomplete="username" placeholder="name@example.com"></div>
+<div class="field"><label>รหัสผ่าน</label><input id="password" type="password" autocomplete="current-password" placeholder="รหัสผ่าน"></div>
 <label class="small muted" style="display:flex;align-items:center;gap:8px;margin:8px 0 14px"><input id="showPassword" type="checkbox" style="width:auto"> แสดงรหัสผ่าน</label>
-<button id="loginBtn" style="width:100%">เข้าสู่ระบบ</button><button id="signupBtn" class="secondary" style="width:100%;margin-top:9px">สมัครสมาชิก</button><button id="forgotBtn" class="secondary" style="width:100%;margin-top:9px">ลืมรหัสผ่าน / ตั้งรหัสผ่านครั้งแรก</button>
-<div id="loginmsg" class="status" role="status"></div><div class="notice">ระบบยังอยู่ในช่วงเริ่มต้น CARBX เป็นเครดิตภายในระบบ ไม่ใช่เหรียญที่ซื้อขายหรือถอนเป็นเงินสดได้ในขณะนี้</div></div>
+<button id="loginBtn" style="width:100%">เข้าสู่ระบบสมาชิก</button>
+<button id="signupBtn" class="secondary" style="width:100%;margin-top:9px">สมัครสมาชิกใหม่</button>
+<button id="forgotBtn" class="secondary" style="width:100%;margin-top:9px">ลืมรหัสผ่าน / ตั้งรหัสผ่านครั้งแรก</button>
+<div id="loginmsg" class="status" role="status"></div>
+</div>
+<div class="notice">CARBX เป็นเครดิตภายในระบบในระยะเริ่มต้น ยังไม่ใช่เหรียญที่ซื้อขายหรือถอนเป็นเงินสดได้</div>
+</div>
 <div id="recovery" class="panel login hidden"><h2 style="font-size:22px;margin:5px 0">ตั้งรหัสผ่านใหม่</h2><p class="muted small">กรอกรหัสผ่านใหม่อย่างน้อย 8 ตัวอักษร</p><div class="field"><label>รหัสผ่านใหม่</label><input id="newPassword" type="password" autocomplete="new-password" placeholder="รหัสผ่านใหม่"></div><div class="field"><label>ยืนยันรหัสผ่านใหม่</label><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="กรอกรหัสผ่านอีกครั้ง"></div><button id="savePassword" style="width:100%">บันทึกรหัสผ่านใหม่</button><div id="recoveryMsg" class="status" role="status"></div></div>
 <main id="app" class="hidden">
 <div class="hero"><div class="eyebrow">ยอดคงเหลือในกระเป๋าของฉัน</div><div class="balance" id="balance">—</div><div class="unit">CARBX</div><div class="balancefoot"><span id="member">สมาชิก CARBON TOKEN</span><span id="memberstatus">สถานะ: —</span></div></div>
 <div class="cards"><div class="stat"><span>ยอดพร้อมใช้</span><strong id="available">—</strong></div><div class="stat"><span>ยอดล็อก</span><strong id="locked">—</strong></div><div class="stat"><span>คาร์บอนที่ลดได้*</span><strong id="co2">—</strong></div></div>
-<div class="tabs"><button class="active" data-tab="activity">กิจกรรม</button><button data-tab="transfer">โอน CARBX</button><button data-tab="impact">สิ่งแวดล้อม</button><button data-tab="profile">บัญชีของฉัน</button></div>
+<div class="tabs"><button class="active" data-tab="activity">กิจกรรม</button><button data-tab="transfer">โอน CARBX</button><button data-tab="impact">สิ่งแวดล้อม</button><button data-tab="profile">บัญชีของฉัน</button><button id="adminTab" data-tab="admin" class="hidden">ศูนย์ผู้ดูแล</button></div>
 <section id="activity" class="section active panel"><h2>ประวัติ CARBX</h2><div id="activitylist" class="list"><div class="empty">กำลังโหลดข้อมูล…</div></div></section>
 <section id="transfer" class="section panel"><h2>โอน CARBX ให้สมาชิก</h2><p class="muted small">โอนภายในกระเป๋าสมาชิกเท่านั้น ไม่มีค่าธรรมเนียมในระยะทดลอง และไม่ใช่การแลกเป็นเงินสดหรือซื้อขายบน Exchange</p><div class="notice" id="transferNotice">กำลังตรวจสอบสถานะระบบโอน…</div><div class="field"><label>อีเมลผู้รับที่ลงทะเบียนและได้รับอนุมัติแล้ว</label><input id="transferRecipient" type="email" autocomplete="off" placeholder="member@example.com"></div><div class="field"><label>จำนวน CARBX</label><input id="transferAmount" type="number" min="0.00000001" step="0.00000001" inputmode="decimal" placeholder="0.00"></div><button id="transferButton" disabled>ระบบโอนยังไม่เปิด</button><div id="transferMsg" class="status" role="status"></div></section>
 <section id="impact" class="section panel"><h2>ผลงานด้านพลังงานและสิ่งแวดล้อม</h2><div class="cards"><div class="stat"><span>ไฟฟ้าที่ผลิตได้</span><strong id="energy">—</strong></div><div class="stat"><span>ไฟฟ้าส่งออก</span><strong id="exported">—</strong></div><div class="stat"><span>ลด CO₂e โดยประมาณ</span><strong id="impactco2">—</strong></div></div><div id="installations" class="list"></div><p class="muted small">*ข้อมูลการลดคาร์บอนเป็นค่าประมาณตามข้อมูลที่ระบบได้รับ ไม่ใช่ใบรับรองคาร์บอนเครดิต</p></section>
 <section id="profile" class="section panel"><h2>บัญชีของฉัน</h2><div class="list"><div class="item"><div><small>ชื่อสมาชิก</small><strong id="pname">—</strong></div></div><div class="item"><div><small>อีเมล</small><strong id="pemail">—</strong></div></div><div class="item"><div><small>วันที่สมัคร</small><strong id="pdate">—</strong></div></div><div class="item"><div><small>รหัสสมาชิก</small><strong id="pid">—</strong></div></div></div><div class="notice">ระบบเปิดดูข้อมูลส่วนตัวของบัญชีที่เข้าสู่ระบบเท่านั้น การแลกคืนและซื้อขายยังปิดใช้งาน ส่วนการโอนจะขึ้นอยู่กับสถานะที่เจ้าของระบบอนุมัติ</div></section>
+
+<section id="admin" class="section panel hidden">
+<h2>ศูนย์ผู้ดูแล CARBON TOKEN</h2>
+<div class="notice">พื้นที่นี้แสดงเฉพาะบัญชีที่ได้รับสิทธิ์ผู้ดูแลในฐานข้อมูล ระบบตรวจสิทธิ์ซ้ำด้วย Supabase RLS</div>
+<div id="adminRole" class="muted small" style="margin:10px 0 16px"></div>
+<div class="cards">
+ <div class="stat"><span>โครงการที่ลงทะเบียน</span><strong id="adminProjectCount">—</strong></div>
+ <div class="stat"><span>ใบรับรองที่บันทึก</span><strong id="adminCertCount">—</strong></div>
+ <div class="stat"><span>รายการรอตรวจ</span><strong id="adminPendingCount">—</strong></div>
+</div>
+<h3 style="font-size:15px">ทะเบียนโครงการ</h3>
+<div class="field"><label>รหัสโครงการ</label><input id="apCode" placeholder="CT-SOLAR-0001"></div>
+<div class="field"><label>ชื่อโครงการ</label><input id="apName" placeholder="ชื่อโครงการ"></div>
+<div class="field"><label>เจ้าของโครงการ</label><input id="apOwner" placeholder="ชื่อบุคคล / บริษัท"></div>
+<div class="field"><label>ผู้พัฒนา / พันธมิตร</label><input id="apPartner" placeholder="ถ้ามี"></div>
+<div class="field"><label>ประเภทโครงการ</label><select id="apPath"><option value="solar">พลังงานแสงอาทิตย์</option><option value="carbon_project">โครงการคาร์บอน</option><option value="rec_project">โครงการ REC</option><option value="mixed">โครงการผสม</option></select></div>
+<div class="field"><label>จังหวัด / สถานที่</label><input id="apLocation" placeholder="จังหวัดหรือที่ตั้ง"></div>
+<div class="cards">
+ <div class="field"><label>กำลังติดตั้ง (kW)</label><input id="apCapacity" type="number" min="0" step="0.01"></div>
+ <div class="field"><label>ผลิตไฟฟ้าต่อปี (kWh)</label><input id="apGeneration" type="number" min="0" step="0.01"></div>
+</div>
+<div class="field"><label>หมายเหตุ</label><textarea id="apNotes" rows="2"></textarea></div>
+<button id="saveProject">บันทึกโครงการ</button><div id="projectMsg" class="status"></div>
+<div id="projectList" class="list" style="margin:12px 0 24px"></div>
+<hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+<h3 style="font-size:15px">ทะเบียนใบรับรอง / หลักฐานสินทรัพย์</h3>
+<div class="field"><label>รหัสใบรับรอง / Serial</label><input id="acCode" placeholder="เลขที่ใบรับรอง"></div>
+<div class="field"><label>ประเภทสินทรัพย์</label><select id="acType"><option value="carbon_credit">คาร์บอนเครดิต</option><option value="rec">REC</option></select></div>
+<div class="field"><label>มาตรฐาน</label><input id="acStandard" placeholder="T-VER, I-REC, Gold Standard"></div>
+<div class="field"><label>Registry / หน่วยงานผู้ออก</label><input id="acRegistry"></div>
+<div class="cards">
+ <div class="field"><label>ปริมาณ</label><input id="acQty" type="number" min="0.000001" step="0.000001"></div>
+ <div class="field"><label>หน่วย</label><select id="acUnit"><option value="tCO2e">tCO2e</option><option value="MWh">MWh</option></select></div>
+</div>
+<div class="cards">
+ <div class="field"><label>ปี Vintage</label><input id="acVintage" type="number" min="1990" max="2200"></div>
+ <div class="field"><label>เจ้าของปัจจุบัน</label><input id="acOwner"></div>
+</div>
+<div class="field"><label>เลขอ้างอิง Custody</label><input id="acCustody"></div>
+<div class="field"><label>ลิงก์หลักฐาน</label><input id="acEvidence" type="url" placeholder="https://..."></div>
+<button id="saveCertificate">บันทึกใบรับรอง</button><div id="certificateMsg" class="status"></div>
+<div id="certificateList" class="list" style="margin:12px 0"></div>
+</section>
 <div class="foot">CARBON TOKEN · CARBX · Member portal</div></main></div><div id="bottom" class="bottom hidden"><button id="refresh">↻ อัปเดตข้อมูลล่าสุด</button></div>
 <script type="module" nonce="__NONCE__">
 import {createClient} from "https://esm.sh/@supabase/supabase-js@2.89.0";
@@ -31,7 +90,23 @@ const fmt=n=>Number(n||0).toLocaleString("th-TH",{maximumFractionDigits:4});
 const date=v=>v?new Date(v).toLocaleDateString("th-TH",{year:"numeric",month:"short",day:"numeric"}):"—";
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function status(id,t,bad=false){$(id).textContent=t;$(id).style.color=bad?"#ff9b9b":"#f4bd55"}
-async function showSession(session){if(!session){$("login").classList.remove("hidden");$("recovery").classList.add("hidden");$("app").classList.add("hidden");$("logout").classList.add("hidden");$("bottom").classList.add("hidden");return}$("login").classList.add("hidden");$("recovery").classList.add("hidden");$("app").classList.remove("hidden");$("logout").classList.remove("hidden");$("bottom").classList.remove("hidden");await loadData(session.user)}
+async function showSession(session){
+ if(!session){$("login").classList.remove("hidden");$("portalChoice").classList.remove("hidden");$("loginForm").classList.add("hidden");$("recovery").classList.add("hidden");$("app").classList.add("hidden");$("logout").classList.add("hidden");$("bottom").classList.add("hidden");return}
+ $("login").classList.add("hidden");$("recovery").classList.add("hidden");$("app").classList.remove("hidden");$("logout").classList.remove("hidden");$("bottom").classList.add("hidden");
+ const {data:admin,error:adminError}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",session.user.id).eq("is_active",true).maybeSingle();
+ if(adminError)console.warn("Admin role check failed",adminError);
+ if(admin){
+  $("logout").textContent="ออกจากระบบผู้ดูแล";
+  document.querySelectorAll("#app > .hero, #app > .cards, #app > .tabs, #app > .section:not(#admin), #app > .foot").forEach(el=>el.classList.add("hidden"));
+  $("adminTab").classList.add("hidden");$("admin").classList.add("active");$("admin").classList.remove("hidden");
+  $("adminRole").textContent="ช่องทางผู้ดูแล · สิทธิ์: "+admin.admin_role;
+  await loadAdmin(session.user);return;
+ }
+ $("logout").textContent="ออกจากระบบสมาชิก";
+ $("admin").classList.add("hidden");$("admin").classList.remove("active");
+ document.querySelectorAll("#app > .hero, #app > .cards, #app > .tabs, #app > .section:not(#admin), #app > .foot").forEach(el=>el.classList.remove("hidden"));
+ await loadData(session.user);
+}
 function setMemberGate(message){let gate=$("memberGate");if(!gate){gate=document.createElement("div");gate.id="memberGate";gate.className="notice";$("app").prepend(gate)}gate.textContent=message;document.querySelectorAll("#app > .hero, #app > .cards, #app > .tabs, #app > .section, #app > .foot").forEach(el=>el.classList.add("hidden"))}
 function clearMemberGate(){const gate=$("memberGate");if(gate)gate.remove();document.querySelectorAll("#app > .hero, #app > .cards, #app > .tabs, #app > .section, #app > .foot").forEach(el=>el.classList.remove("hidden"))}
 async function loadData(user){
@@ -46,15 +121,111 @@ async function loadData(user){
  const co2=(impacts.data||[]).reduce((a,x)=>a+Number(x.estimated_co2e_kg||0),0),gen=(energy.data||[]).reduce((a,x)=>a+Number(x.generated_kwh||0),0),exp=(energy.data||[]).reduce((a,x)=>a+Number(x.exported_kwh||0),0);$("co2").textContent=fmt(co2)+" kg";$("impactco2").textContent=fmt(co2)+" kg";$("energy").textContent=fmt(gen)+" kWh";$("exported").textContent=fmt(exp)+" kWh";
  $("installations").innerHTML=(inst.data||[]).length?(inst.data||[]).map(x=>'<div class="item"><div><strong>'+esc(x.installation_code||x.system_type||"ระบบพลังงาน")+'</strong><small>'+esc(x.system_type||"")+" · "+esc(x.installed_at||"ยังไม่ระบุวันติดตั้ง")+'</small></div><span class="pill">'+esc(x.commissioning_status||"รอตรวจสอบ")+'</span></div>').join(""):'<div class="empty">ยังไม่มีข้อมูลระบบติดตั้งที่ผูกกับบัญชีนี้</div>';
 }
+let portalMode="member";
+function choosePortal(mode){
+ portalMode=mode;$("portalChoice").classList.add("hidden");$("loginForm").classList.remove("hidden");
+ $("portalHeading").textContent=mode==="admin"?"ADMINISTRATOR ACCESS":"MEMBER LOGIN";
+ $("portalTitle").textContent=mode==="admin"?"เข้าสู่ระบบผู้ดูแลระบบ":"เข้าสู่ระบบสมาชิก";
+ $("loginBtn").textContent=mode==="admin"?"เข้าสู่ระบบผู้ดูแล":"เข้าสู่ระบบสมาชิก";
+ $("signupBtn").classList.toggle("hidden",mode==="admin");
+ $("nameField").classList.toggle("hidden",mode==="admin");
+ $("loginmsg").textContent="";
+}
+$("memberPortalBtn").addEventListener("click",()=>choosePortal("member"));
+$("adminPortalBtn").addEventListener("click",()=>choosePortal("admin"));
+$("backPortalBtn").addEventListener("click",()=>{$("loginForm").classList.add("hidden");$("portalChoice").classList.remove("hidden");$("loginmsg").textContent="";$("password").value="";});
 $("showPassword").addEventListener("change",()=>$("password").type=$("showPassword").checked?"text":"password");
-$("loginBtn").addEventListener("click",async()=>{const email=$("email").value.trim().toLowerCase(),password=$("password").value;if(!email||!email.includes("@")){status("loginmsg","กรุณากรอกอีเมลให้ถูกต้อง",true);return}if(!password){status("loginmsg","กรุณากรอกรหัสผ่าน",true);return}status("loginmsg","กำลังเข้าสู่ระบบ…");const {error}=await supabase.auth.signInWithPassword({email,password});status("loginmsg",error?"เข้าสู่ระบบไม่สำเร็จ: "+error.message:"เข้าสู่ระบบสำเร็จ")});
+let portalMode="member";
+function choosePortal(mode){portalMode=mode;$("portalChoice").classList.add("hidden");$("loginForm").classList.remove("hidden");$("portalHeading").textContent=mode==="admin"?"ADMINISTRATOR ACCESS":"MEMBER LOGIN";$("portalTitle").textContent=mode==="admin"?"เข้าสู่ระบบผู้ดูแลระบบ":"เข้าสู่ระบบสมาชิก";$("loginBtn").textContent=mode==="admin"?"เข้าสู่ระบบผู้ดูแล":"เข้าสู่ระบบสมาชิก";$("signupBtn").classList.toggle("hidden",mode==="admin");$("nameField").classList.toggle("hidden",mode==="admin");$("loginmsg").textContent="";}
+$("memberPortalBtn").addEventListener("click",()=>choosePortal("member"));
+$("adminPortalBtn").addEventListener("click",()=>choosePortal("admin"));
+$("backPortalBtn").addEventListener("click",()=>{$("loginForm").classList.add("hidden");$("portalChoice").classList.remove("hidden");$("loginmsg").textContent="";$("password").value="";});
+$("loginBtn").addEventListener("click",async()=>{
+ const email=$("email").value.trim().toLowerCase(),password=$("password").value;
+ if(!email||!email.includes("@")){status("loginmsg","กรุณากรอกอีเมลให้ถูกต้อง",true);return}
+ if(!password){status("loginmsg","กรุณากรอกรหัสผ่าน",true);return}
+ status("loginmsg","กำลังตรวจสอบบัญชี…");
+ const {data,error}=await supabase.auth.signInWithPassword({email,password});
+ if(error){status("loginmsg","เข้าสู่ระบบไม่สำเร็จ: "+error.message,true);return}
+ const {data:admin,error:roleError}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",data.user.id).eq("is_active",true).maybeSingle();
+ if(roleError){status("loginmsg","ตรวจสอบสิทธิ์ไม่สำเร็จ กรุณาลองใหม่",true);await supabase.auth.signOut();return}
+ if(portalMode==="admin"&&!admin){status("loginmsg","บัญชีนี้ยังไม่ได้รับสิทธิ์ผู้ดูแลระบบ",true);await supabase.auth.signOut();return}
+ if(portalMode==="member"&&admin){status("loginmsg","บัญชีนี้เป็นผู้ดูแล กรุณาเลือกช่องทางผู้ดูแลระบบ",true);await supabase.auth.signOut();return}
+ status("loginmsg","เข้าสู่ระบบสำเร็จ");
+});if(error){status("loginmsg","เข้าสู่ระบบไม่สำเร็จ: "+error.message,true);return}const {data:admin,error:roleError}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",data.user.id).eq("is_active",true).maybeSingle();if(roleError){status("loginmsg","ตรวจสอบสิทธิ์ไม่สำเร็จ กรุณาลองใหม่",true);await supabase.auth.signOut();return}if(portalMode==="admin"&&!admin){status("loginmsg","บัญชีนี้ยังไม่ได้รับสิทธิ์ผู้ดูแลระบบ",true);await supabase.auth.signOut();return}if(portalMode==="member"&&admin){status("loginmsg","บัญชีนี้เป็นผู้ดูแลระบบ กรุณาเลือกช่องทางเข้าสู่ระบบผู้ดูแล",true);await supabase.auth.signOut();return}status("loginmsg","เข้าสู่ระบบสำเร็จ")});
 $("signupBtn").addEventListener("click",async()=>{const email=$("email").value.trim().toLowerCase(),password=$("password").value,name=$("name").value.trim();if(!email||!email.includes("@")){status("loginmsg","กรุณากรอกอีเมลให้ถูกต้อง",true);return}if(password.length<8){status("loginmsg","รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",true);return}status("loginmsg","กำลังสมัครสมาชิก…");const {data,error}=await supabase.auth.signUp({email,password,options:{data:name?{display_name:name}:{},emailRedirectTo:location.href.split("#")[0]}});status("loginmsg",error?"สมัครไม่สำเร็จ: "+error.message:(data.session?"สมัครและเข้าสู่ระบบสำเร็จ":"สมัครแล้ว กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชี"))});
 $("forgotBtn").addEventListener("click",async()=>{const email=$("email").value.trim().toLowerCase();if(!email||!email.includes("@")){status("loginmsg","กรุณากรอกอีเมลก่อนกดลืมรหัสผ่าน",true);return}status("loginmsg","กำลังส่งอีเมลตั้งรหัสผ่าน…");const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:location.href.split("#")[0]});status("loginmsg",error?"ส่งอีเมลไม่สำเร็จ: "+error.message:"ส่งลิงก์ตั้งรหัสผ่านแล้ว กรุณาเปิดอีเมลจากระบบ")});
 $("savePassword").addEventListener("click",async()=>{const p=$("newPassword").value,c=$("confirmPassword").value;if(p.length<8){status("recoveryMsg","รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",true);return}if(p!==c){status("recoveryMsg","รหัสผ่านทั้งสองช่องไม่ตรงกัน",true);return}status("recoveryMsg","กำลังบันทึกรหัสผ่าน…");const {error}=await supabase.auth.updateUser({password:p});if(error){status("recoveryMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}status("recoveryMsg","ตั้งรหัสผ่านสำเร็จ");$("recovery").classList.add("hidden");$("newPassword").value="";$("confirmPassword").value="";const {data:{session}}=await supabase.auth.getSession();await showSession(session)});
 $("logout").addEventListener("click",async()=>{await supabase.auth.signOut();location.reload()});
 $("refresh").addEventListener("click",async()=>{try{const {data:{user}}=await supabase.auth.getUser();if(user)await loadData(user)}catch(e){alert("โหลดข้อมูลไม่สำเร็จ: "+e.message)}});
 $("transferButton").addEventListener("click",async()=>{const email=$("transferRecipient").value.trim().toLowerCase(),amount=Number($("transferAmount").value);if(!email.includes("@")||!(amount>0)||!Number.isFinite(amount)||Math.round(amount*1e8)!==amount*1e8){status("transferMsg","กรุณาตรวจสอบอีเมลและจำนวน CARBX (ทศนิยมไม่เกิน 8 ตำแหน่ง)",true);return}if(!confirm("ยืนยันโอน "+fmt(amount)+" CARBX ไปยัง "+email+" ? รายการที่ยืนยันแล้วไม่สามารถยกเลิกเองได้"))return;const btn=$("transferButton");btn.disabled=true;try{const {data,error}=await db.rpc("member_transfer",{p_recipient_email:email,p_amount:amount,p_idempotency_key:crypto.randomUUID()});if(error)throw error;if(data?.status!=="posted"&&data?.status!=="already_processed")throw new Error("ระบบยังไม่ยืนยันรายการ");status("transferMsg","โอนสำเร็จ · "+fmt(amount)+" CARBX · บันทึกประวัติแล้ว");$("transferRecipient").value="";$("transferAmount").value="";const {data:{user}}=await supabase.auth.getUser();if(user)await loadData(user)}catch(e){status("transferMsg","โอนไม่สำเร็จ: "+e.message,true)}finally{btn.disabled=false;const {data}=await db.rpc("member_wallet_transfer_status");btn.disabled=data!==true}});
-document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".section").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab))}));
+
+async function loadAdmin(user){
+ const {data:admin,error}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",user.id).eq("is_active",true).maybeSingle();
+ if(error)throw error;if(!admin)throw new Error("บัญชีนี้ไม่มีสิทธิ์ผู้ดูแล");
+ $("adminRole").textContent="สิทธิ์ผู้ดูแล: "+admin.admin_role;
+ const [projects,certs]=await Promise.all([
+  db.from("carbon_asset_projects").select("id,project_code,project_name,owner_name,province,installed_capacity_kw,project_status,data_status,created_at").order("created_at",{ascending:false}).limit(100),
+  db.from("carbon_asset_certificates").select("id,certificate_code,asset_type,standard_name,quantity,unit,vintage_year,owner_name,document_status,created_at").order("created_at",{ascending:false}).limit(100)
+ ]);
+ if(projects.error)throw projects.error;if(certs.error)throw certs.error;
+ const ps=projects.data||[],cs=certs.data||[];
+ $("adminProjectCount").textContent=fmt(ps.length);$("adminCertCount").textContent=fmt(cs.length);
+ $("adminPendingCount").textContent=fmt(cs.filter(x=>x.document_status==="pending"||x.document_status==="submitted").length);
+ $("projectList").innerHTML=ps.length?ps.map(x=>'<div class="item"><div><strong>'+esc(x.project_code||"ไม่ระบุรหัส")+' · '+esc(x.project_name)+'</strong><small>'+esc(x.owner_name||"ไม่ระบุเจ้าของ")+' · '+esc(x.province||"ไม่ระบุพื้นที่")+' · '+fmt(x.installed_capacity_kw||0)+' kW</small></div><span class="pill">'+esc(x.project_status||x.data_status||"registered")+'</span></div>').join(""):'<div class="empty">ยังไม่มีโครงการในทะเบียน</div>';
+ $("certificateList").innerHTML=cs.length?cs.map(x=>'<div class="item"><div><strong>'+esc(x.certificate_code||"ไม่ระบุ Serial")+' · '+esc(x.asset_type)+'</strong><small>'+esc(x.standard_name||"ไม่ระบุมาตรฐาน")+' · '+fmt(x.quantity)+' '+esc(x.unit)+' · Vintage '+esc(x.vintage_year||"—")+'</small></div><span class="pill">'+esc(x.document_status)+'</span></div>').join(""):'<div class="empty">ยังไม่มีใบรับรองในทะเบียน</div>';
+}
+$("saveProject").addEventListener("click",async()=>{
+ const {data:{user}}=await supabase.auth.getUser(),name=$("apName").value.trim();
+ if(!name){status("projectMsg","กรุณากรอกชื่อโครงการ",true);return}
+ const payload={project_code:$("apCode").value.trim()||null,project_name:name,owner_name:$("apOwner").value.trim()||null,partner_name:$("apPartner").value.trim()||null,asset_pathway:$("apPath").value,location_text:$("apLocation").value.trim()||null,province:$("apLocation").value.trim()||null,installed_capacity_kw:$("apCapacity").value?Number($("apCapacity").value):null,estimated_generation_kwh_year:$("apGeneration").value?Number($("apGeneration").value):null,notes:$("apNotes").value.trim()||null,created_by:user.id};
+ status("projectMsg","กำลังบันทึก…");const {error}=await db.from("carbon_asset_projects").insert(payload);
+ if(error){status("projectMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}
+ status("projectMsg","บันทึกโครงการแล้ว");["apCode","apName","apOwner","apPartner","apLocation","apCapacity","apGeneration","apNotes"].forEach(id=>$(id).value="");await loadAdmin(user);
+});
+$("saveCertificate").addEventListener("click",async()=>{
+ const {data:{user}}=await supabase.auth.getUser(),code=$("acCode").value.trim(),qty=Number($("acQty").value),unit=$("acUnit").value;
+ if(!code||!(qty>0)){status("certificateMsg","กรุณากรอกรหัสใบรับรองและปริมาณให้ถูกต้อง",true);return}
+ const payload={certificate_code:code,asset_type:$("acType").value,standard_name:$("acStandard").value.trim()||null,registry_name:$("acRegistry").value.trim()||null,quantity:qty,unit,vintage_year:$("acVintage").value?Number($("acVintage").value):null,owner_name:$("acOwner").value.trim()||null,custody_reference:$("acCustody").value.trim()||null,evidence_uri:$("acEvidence").value.trim()||null,created_by:user.id};
+ status("certificateMsg","กำลังบันทึก…");const {error}=await db.from("carbon_asset_certificates").insert(payload);
+ if(error){status("certificateMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}
+ status("certificateMsg","บันทึกใบรับรองแล้ว · รอตรวจเอกสาร");["acCode","acStandard","acRegistry","acQty","acVintage","acOwner","acCustody","acEvidence"].forEach(id=>$(id).value="");await loadAdmin(user);
+});
+
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{
+async function loadAdmin(user){
+ const {data:admin,error}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",user.id).eq("is_active",true).maybeSingle();
+ if(error)throw error;if(!admin)throw new Error("บัญชีนี้ไม่มีสิทธิ์ผู้ดูแล");
+ $("adminRole").textContent="สิทธิ์ผู้ดูแล: "+admin.admin_role;
+ const [projects,certs]=await Promise.all([
+  db.from("carbon_asset_projects").select("id,project_code,project_name,owner_name,province,installed_capacity_kw,project_status,data_status,created_at").order("created_at",{ascending:false}).limit(100),
+  db.from("carbon_asset_certificates").select("id,certificate_code,asset_type,standard_name,quantity,unit,vintage_year,owner_name,document_status,created_at").order("created_at",{ascending:false}).limit(100)
+ ]);
+ if(projects.error)throw projects.error;if(certs.error)throw certs.error;
+ const ps=projects.data||[],cs=certs.data||[];
+ $("adminProjectCount").textContent=fmt(ps.length);$("adminCertCount").textContent=fmt(cs.length);
+ $("adminPendingCount").textContent=fmt(cs.filter(x=>x.document_status==="pending"||x.document_status==="submitted").length);
+ $("projectList").innerHTML=ps.length?ps.map(x=>'<div class="item"><div><strong>'+esc(x.project_code||"ไม่ระบุรหัส")+' · '+esc(x.project_name)+'</strong><small>'+esc(x.owner_name||"ไม่ระบุเจ้าของ")+' · '+esc(x.province||"ไม่ระบุพื้นที่")+' · '+fmt(x.installed_capacity_kw||0)+' kW</small></div><span class="pill">'+esc(x.project_status||x.data_status||"registered")+'</span></div>').join(""):'<div class="empty">ยังไม่มีโครงการในทะเบียน</div>';
+ $("certificateList").innerHTML=cs.length?cs.map(x=>'<div class="item"><div><strong>'+esc(x.certificate_code||"ไม่ระบุ Serial")+' · '+esc(x.asset_type)+'</strong><small>'+esc(x.standard_name||"ไม่ระบุมาตรฐาน")+' · '+fmt(x.quantity)+' '+esc(x.unit)+' · Vintage '+esc(x.vintage_year||"—")+'</small></div><span class="pill">'+esc(x.document_status)+'</span></div>').join(""):'<div class="empty">ยังไม่มีใบรับรองในทะเบียน</div>';
+}
+$("saveProject").addEventListener("click",async()=>{
+ const {data:{user}}=await supabase.auth.getUser(),name=$("apName").value.trim();
+ if(!name){status("projectMsg","กรุณากรอกชื่อโครงการ",true);return}
+ const payload={project_code:$("apCode").value.trim()||null,project_name:name,owner_name:$("apOwner").value.trim()||null,partner_name:$("apPartner").value.trim()||null,asset_pathway:$("apPath").value,location_text:$("apLocation").value.trim()||null,province:$("apLocation").value.trim()||null,installed_capacity_kw:$("apCapacity").value?Number($("apCapacity").value):null,estimated_generation_kwh_year:$("apGeneration").value?Number($("apGeneration").value):null,notes:$("apNotes").value.trim()||null,created_by:user.id};
+ status("projectMsg","กำลังบันทึก…");const {error}=await db.from("carbon_asset_projects").insert(payload);
+ if(error){status("projectMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}
+ status("projectMsg","บันทึกโครงการแล้ว");["apCode","apName","apOwner","apPartner","apLocation","apCapacity","apGeneration","apNotes"].forEach(id=>$(id).value="");await loadAdmin(user);
+});
+$("saveCertificate").addEventListener("click",async()=>{
+ const {data:{user}}=await supabase.auth.getUser(),code=$("acCode").value.trim(),qty=Number($("acQty").value),unit=$("acUnit").value;
+ if(!code||!(qty>0)){status("certificateMsg","กรุณากรอกรหัสใบรับรองและปริมาณให้ถูกต้อง",true);return}
+ const payload={certificate_code:code,asset_type:$("acType").value,standard_name:$("acStandard").value.trim()||null,registry_name:$("acRegistry").value.trim()||null,quantity:qty,unit,vintage_year:$("acVintage").value?Number($("acVintage").value):null,owner_name:$("acOwner").value.trim()||null,custody_reference:$("acCustody").value.trim()||null,evidence_uri:$("acEvidence").value.trim()||null,created_by:user.id};
+ status("certificateMsg","กำลังบันทึก…");const {error}=await db.from("carbon_asset_certificates").insert(payload);
+ if(error){status("certificateMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}
+ status("certificateMsg","บันทึกใบรับรองแล้ว · รอตรวจเอกสาร");["acCode","acStandard","acRegistry","acQty","acVintage","acOwner","acCustody","acEvidence"].forEach(id=>$(id).value="");await loadAdmin(user);
+});
+
+document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".section").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab))}));
 supabase.auth.onAuthStateChange((event,session)=>{if("serviceWorker" in navigator){navigator.serviceWorker.register(new URL("?asset=sw",location.href).href,{scope:location.pathname}).catch(e=>console.warn("Offline shell unavailable",e))}if(event==="PASSWORD_RECOVERY"){$("login").classList.add("hidden");$("recovery").classList.remove("hidden");return}if(event==="SIGNED_OUT")$("recovery").classList.add("hidden");setTimeout(()=>showSession(session).catch(e=>alert("โหลดข้อมูลไม่สำเร็จ: "+e.message)),0)});
 const {data:{session}}=await supabase.auth.getSession();if(session)await showSession(session);
 </script></body></html>
