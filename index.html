@@ -311,7 +311,7 @@ body:before,body:after{content:none!important;display:none!important;background:
       <div id="treasuryAdminBlock" class="admin-block hidden"><h3>บัญชีเงินสำรอง / Treasury</h3><div id="treasuryAdminList" class="list"><div class="empty">ยังไม่มีข้อมูล</div></div></div>
       <div id="rewardAdminBlock" class="admin-block hidden"><h3>อัตราแลกรางวัล</h3><div id="rewardRateList" class="list"></div><div id="rewardRateEditor" class="hidden"><div class="admin-form"><div class="field"><label for="rrToken">จำนวน CARBX</label><input id="rrToken" type="number" min="0.000001" step="0.000001"></div><div class="field"><label for="rrBaht">มูลค่ารางวัล (บาท)</label><input id="rrBaht" type="number" min="0.01" step="0.01"></div></div><button id="saveRewardRate">สร้างอัตรารางวัล</button><div id="rewardRateMsg" class="status"></div></div></div>
       <div id="solarPayoutAdminBlock" class="admin-block hidden"><h3>ควบคุมการจ่าย CARBX จากกระเป๋ากลาง</h3><div id="solarPayoutStatus" class="notice">กำลังตรวจสอบสถานะ…</div><div class="admin-actions"><button id="solarPayoutToggle" class="secondary">ระงับการจ่ายอัตโนมัติ</button><button id="solarPayoutProcess" class="secondary">ประมวลผลรายการค้าง</button></div><div id="solarPayoutMsg" class="status"></div><div class="divider-label">ประวัติสิทธิ์คาร์บอน</div><div id="solarRewardClaims" class="list"></div></div>
-      <div id="specialGrantAdminBlock" class="admin-block hidden"><h3>คำขอให้ CARBX เพิ่มกรณีพิเศษ (ไม่เกิน 10,000,000)</h3><p class="muted small">แอดมินสร้างคำขอได้ แต่การอนุมัติและโอนจริงทำได้โดยเจ้าของระบบเท่านั้น</p><div class="inline-fields"><div class="field"><label for="specialGrantEmail">อีเมลสมาชิกผู้รับ</label><input id="specialGrantEmail" type="email" placeholder="member@example.com"></div><div class="field"><label for="specialGrantAmount">จำนวน CARBX (สูงสุด 10 ล้าน)</label><input id="specialGrantAmount" type="number" min="0.00000001" max="10000000" step="0.00000001"></div></div><div class="field"><label for="specialGrantReason">เหตุผลประกอบ</label><textarea id="specialGrantReason" rows="2" maxlength="500"></textarea></div><button id="specialGrantSubmit">ส่งคำขอให้เจ้าของอนุมัติ</button><div id="specialGrantMsg" class="status"></div><div class="divider-label">รายการคำขอพิเศษ</div><div id="specialGrantList" class="list"></div></div>
+      <div id="specialGrantAdminBlock" class="admin-block hidden"><h3>คำขอให้ CARBX เพิ่มกรณีพิเศษ (ไม่เกิน 10,000,000)</h3><p class="muted small">แอดมินสร้างคำขอได้ แต่การอนุมัติและโอนจริงทำได้โดยเจ้าของระบบเท่านั้น</p><div class="inline-fields"><div class="field"><label for="specialGrantEmail">รหัสสมาชิก (UUID)</label><input id="specialGrantEmail" type="text" placeholder="คัดลอกรหัสสมาชิกจากทะเบียนสมาชิก"></div><div class="field"><label for="specialGrantAmount">จำนวน CARBX (สูงสุด 10 ล้าน)</label><input id="specialGrantAmount" type="number" min="0.00000001" max="10000000" step="0.00000001"></div></div><div class="field"><label for="specialGrantReason">เหตุผลประกอบ</label><textarea id="specialGrantReason" rows="2" maxlength="500"></textarea></div><button id="specialGrantSubmit">ส่งคำขอให้เจ้าของอนุมัติ</button><div id="specialGrantMsg" class="status"></div><div class="divider-label">รายการคำขอพิเศษ</div><div id="specialGrantList" class="list"></div></div>
     </div>
     <div class="admin-pane" data-admin-pane="audit">
       <div id="tokenEconomyAdminBlock" class="admin-block hidden">
@@ -629,10 +629,6 @@ async function loadSolarAdminApplications(){
  const q=await db.from("solar_installation_applications").select("id,member_id,solar_capacity_kw,inverter_capacity_kw,inverter_brand,inverter_model,system_type,battery_capacity_kwh,battery_brand,battery_model,installed_at,notes,status,created_at").order("created_at",{ascending:false}).limit(100);
  if(q.error)throw q.error;
  const rows=q.data||[];
- const ids=[...new Set(rows.map(x=>x.member_id))];
- const profiles=ids.length?await db.from("member_profiles").select("user_id,email,display_name").in("user_id",ids):{data:[],error:null};
- if(profiles.error)throw profiles.error;
- const pm=new Map((profiles.data||[]).map(x=>[x.user_id,x]));
  const cards=await Promise.all(rows.map(async x=>{
   const ev=await db.from("solar_installation_evidence").select("object_path").eq("application_id",x.id);
   if(ev.error)throw ev.error;
@@ -640,8 +636,7 @@ async function loadSolarAdminApplications(){
    const signed=await supabase.storage.from("solar-installation-evidence").createSignedUrl(v.object_path,600);
    return signed.error?"":'<a class="small" style="margin-right:9px;color:#9ee6bd" target="_blank" rel="noopener" href="'+esc(signed.data.signedUrl)+'">ภาพ '+(i+1)+'</a>';
   }));
-  const p=pm.get(x.member_id)||{};
-  return '<div class="admin-block"><div class="item"><div><strong>'+esc(p.display_name||p.email||x.member_id)+'</strong><small>'+esc(p.email||x.member_id)+' · '+esc(dateTime(x.created_at))+'</small></div><span class="pill">'+esc(x.status)+'</span></div><div class="small" style="margin:10px 0;line-height:1.8">แผง '+fmt(x.solar_capacity_kw)+' kW · อินเวอร์เตอร์ '+esc(x.inverter_brand)+' '+fmt(x.inverter_capacity_kw)+' kW '+esc(x.inverter_model||"")+'<br>ระบบ '+esc(x.system_type)+' · แบตเตอรี่ '+fmt(x.battery_capacity_kwh)+' kWh '+esc(x.battery_brand||"ไม่มี")+' '+esc(x.battery_model||"")+'<br>วันที่ติดตั้ง '+esc(x.installed_at||"ไม่ระบุ")+'<br>หมายเหตุ '+esc(x.notes||"—")+'</div><div>'+links.join("")+'</div>'+(x.status==="pending"&& (can("projects.manage")||can("certificates.verify")||can("*"))?'<div class="admin-actions" style="margin-top:12px"><button data-solar-review="'+esc(x.id)+'" data-decision="approve">อนุมัติข้อมูลติดตั้ง</button><button class="danger" data-solar-review="'+esc(x.id)+'" data-decision="reject">ไม่อนุมัติ</button></div>':"")+'</div>';
+  return '<div class="admin-block"><div class="item"><div><strong>สมาชิก '+esc(x.member_id)+'</strong><small>'+esc(dateTime(x.created_at))+'</small></div><span class="pill">'+esc(x.status)+'</span></div><div class="small" style="margin:10px 0;line-height:1.8">แผง '+fmt(x.solar_capacity_kw)+' kW · อินเวอร์เตอร์ '+esc(x.inverter_brand)+' '+fmt(x.inverter_capacity_kw)+' kW '+esc(x.inverter_model||"")+'<br>ระบบ '+esc(x.system_type)+' · แบตเตอรี่ '+fmt(x.battery_capacity_kwh)+' kWh '+esc(x.battery_brand||"ไม่มี")+' '+esc(x.battery_model||"")+'<br>วันที่ติดตั้ง '+esc(x.installed_at||"ไม่ระบุ")+'<br>หมายเหตุ '+esc(x.notes||"—")+'</div><div>'+links.join("")+'</div>'+(x.status==="pending"&& (can("projects.manage")||can("certificates.verify")||can("*"))?'<div class="admin-actions" style="margin-top:12px"><button data-solar-review="'+esc(x.id)+'" data-decision="approve">อนุมัติข้อมูลติดตั้ง</button><button class="danger" data-solar-review="'+esc(x.id)+'" data-decision="reject">ไม่อนุมัติ</button></div>':"")+'</div>';
  }));
  listItems("solarAdminApplications",cards, x=>x,"ยังไม่มีคำขอลงทะเบียนโซลาร์เซลล์");
 }
@@ -661,11 +656,8 @@ async function loadSolarPayoutData(){
 async function loadSpecialGrantRequests(){
  const q=await db.from("carbx_special_grant_requests").select("id,member_id,amount,reason,status,requested_by,created_at").order("created_at",{ascending:false}).limit(100);
  if(q.error)throw q.error;
- const rows=q.data||[],ids=[...new Set(rows.map(x=>x.member_id))];
- const p=ids.length?await db.from("member_profiles").select("user_id,email,display_name").in("user_id",ids):{data:[],error:null};
- if(p.error)throw p.error;
- const pm=new Map((p.data||[]).map(x=>[x.user_id,x]));
- listItems("specialGrantList",rows,x=>{const m=pm.get(x.member_id)||{};return '<div class="item"><div><strong>'+fmt(x.amount)+' CARBX · '+esc(m.email||x.member_id)+'</strong><small>'+esc(x.reason)+' · '+esc(x.status)+' · '+esc(dateTime(x.created_at))+'</small></div>'+(activeAdmin?.admin_role==="owner"&&x.status==="pending"?'<div class="admin-actions"><button data-special-decision="'+esc(x.id)+'" data-approve="true">อนุมัติและโอน</button><button class="danger" data-special-decision="'+esc(x.id)+'" data-approve="false">ปฏิเสธ</button></div>':'<span class="pill">'+esc(x.status)+'</span>')+'</div>';}, "ยังไม่มีคำขอพิเศษ");
+ const rows=q.data||[];
+ listItems("specialGrantList",rows,x=>{return '<div class="item"><div><strong>'+fmt(x.amount)+' CARBX · '+esc(x.member_id)+'</strong><small>'+esc(x.reason)+' · '+esc(x.status)+' · '+esc(dateTime(x.created_at))+'</small></div>'+(activeAdmin?.admin_role==="owner"&&x.status==="pending"?'<div class="admin-actions"><button data-special-decision="'+esc(x.id)+'" data-approve="true">อนุมัติและโอน</button><button class="danger" data-special-decision="'+esc(x.id)+'" data-approve="false">ปฏิเสธ</button></div>':'<span class="pill">'+esc(x.status)+'</span>')+'</div>';}, "ยังไม่มีคำขอพิเศษ");
 }
 
 async function loadAdmin(user){
@@ -821,12 +813,11 @@ $("solarPayoutProcess").addEventListener("click",async()=>{
  catch(e){status("solarPayoutMsg","ประมวลผลไม่สำเร็จ: "+e.message,true)}finally{b.disabled=false}
 });
 $("specialGrantSubmit").addEventListener("click",async()=>{
- const email=$("specialGrantEmail").value.trim().toLowerCase(),amount=Number($("specialGrantAmount").value),reason=$("specialGrantReason").value.trim();
- if(!email.includes("@")||!(amount>0)||amount>10000000||!reason){status("specialGrantMsg","กรุณาตรวจอีเมล จำนวนไม่เกิน 10 ล้าน และเหตุผลให้ครบ",true);return}
+ const memberId=$("specialGrantEmail").value.trim(),amount=Number($("specialGrantAmount").value),reason=$("specialGrantReason").value.trim();
+ if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(memberId)||!(amount>0)||amount>10000000||!reason){status("specialGrantMsg","กรุณากรอกรหัสสมาชิก UUID จำนวนไม่เกิน 10 ล้าน และเหตุผลให้ครบ",true);return}
  const b=$("specialGrantSubmit");b.disabled=true;
  try{
-  const p=await db.from("member_profiles").select("user_id").eq("email",email).maybeSingle();if(p.error)throw p.error;if(!p.data)throw new Error("ไม่พบสมาชิกด้วยอีเมลนี้");
-  const {error}=await db.rpc("admin_create_special_grant_request",{p_member_id:p.data.user_id,p_amount:amount,p_reason:reason});if(error)throw error;
+  const {error}=await db.rpc("admin_create_special_grant_request",{p_member_id:memberId,p_amount:amount,p_reason:reason});if(error)throw error;
   status("specialGrantMsg","สร้างคำขอแล้ว · รอเจ้าของระบบอนุมัติ");$("specialGrantEmail").value="";$("specialGrantAmount").value="";$("specialGrantReason").value="";
   await loadSpecialGrantRequests();
  }catch(e){status("specialGrantMsg","สร้างคำขอไม่สำเร็จ: "+e.message,true)}finally{b.disabled=false}
