@@ -253,7 +253,34 @@ body:before,body:after{content:none!important;display:none!important;background:
   </section>
   <section id="activity" class="section panel"><h2>ประวัติ CARBX</h2><div id="activitylist" class="list"><div class="empty">กำลังโหลดข้อมูล…</div></div></section>
   <section id="transfer" class="section panel"><h2>โอน CARBX ให้สมาชิก</h2><p class="muted small">โอนภายในกระเป๋าสมาชิกเท่านั้น ไม่มีค่าธรรมเนียมในระยะทดลอง และไม่ใช่การแลกเป็นเงินสดหรือซื้อขายบน Exchange</p><div class="notice" id="transferNotice">กำลังตรวจสอบสถานะระบบโอน…</div><div class="field"><label for="transferRecipient">อีเมลผู้รับที่ลงทะเบียนและได้รับอนุมัติแล้ว</label><input id="transferRecipient" type="email" autocomplete="off" placeholder="member@example.com"></div><div class="field"><label for="transferAmount">จำนวน CARBX</label><input id="transferAmount" type="number" min="0.00000001" step="0.00000001" inputmode="decimal" placeholder="0.00"></div><button id="transferButton" disabled>ระบบโอนยังไม่เปิด</button><div id="transferMsg" class="status" role="status"></div></section>
-  <section id="impact" class="section panel"><h2>ผลงานด้านพลังงานและสิ่งแวดล้อม</h2><div class="cards"><div class="stat"><span>ไฟฟ้าที่ผลิตได้</span><strong id="energy">—</strong></div><div class="stat"><span>ไฟฟ้าส่งออก</span><strong id="exported">—</strong></div><div class="stat"><span>ลด CO₂e โดยประมาณ</span><strong id="impactco2">—</strong></div></div><div id="installations" class="list"></div><p class="muted small">*ข้อมูลการลดคาร์บอนเป็นค่าประมาณตามข้อมูลที่ระบบได้รับ ไม่ใช่ใบรับรองคาร์บอนเครดิต</p></section>
+  <section id="impact" class="section panel"><h2>ผลงานด้านพลังงานและสิ่งแวดล้อม</h2><div class="cards"><div class="stat"><span>ไฟฟ้าที่ผลิตได้</span><strong id="energy">—</strong></div><div class="stat"><span>ไฟฟ้าส่งออก</span><strong id="exported">—</strong></div><div class="stat"><span>ลด CO₂e โดยประมาณ</span><strong id="impactco2">—</strong></div></div><div id="installations" class="list"></div>
+    <div id="solarSubmitBlock" class="admin-block" style="margin-top:18px">
+      <h3>ลงทะเบียนระบบโซลาร์เซลล์เพื่อรับ CARBX</h3>
+      <p class="muted small">กรอกข้อมูลตามการติดตั้งจริงและแนบภาพถ่าย 4 ภาพ: แผง/พื้นที่ติดตั้ง, อินเวอร์เตอร์, แบตเตอรี่ (ถ้ามี) และป้ายรุ่นหรือ Serial/มิเตอร์</p>
+      <div class="inline-fields">
+        <div class="field"><label for="solarCapacity">ขนาดแผงโซลาร์เซลล์รวม (kW)</label><input id="solarCapacity" type="number" min="0.001" step="0.001" placeholder="เช่น 5"></div>
+        <div class="field"><label for="inverterCapacity">ขนาดอินเวอร์เตอร์ (kW)</label><input id="inverterCapacity" type="number" min="0.001" step="0.001" placeholder="เช่น 5"></div>
+      </div>
+      <div class="inline-fields">
+        <div class="field"><label for="inverterBrand">ยี่ห้ออินเวอร์เตอร์</label><input id="inverterBrand" maxlength="100" placeholder="เช่น Deye, Huawei"></div>
+        <div class="field"><label for="inverterModel">รุ่นอินเวอร์เตอร์</label><input id="inverterModel" maxlength="120" placeholder="รุ่น (ถ้าทราบ)"></div>
+      </div>
+      <div class="field"><label for="solarSystemType">ประเภทระบบ</label><select id="solarSystemType"><option value="on_grid">On-grid</option><option value="off_grid">Off-grid</option><option value="hybrid">Hybrid</option><option value="other">อื่น ๆ</option></select></div>
+      <div class="inline-fields">
+        <div class="field"><label for="batteryCapacity">ขนาดแบตเตอรี่รวม (kWh) — ไม่มีให้ใส่ 0</label><input id="batteryCapacity" type="number" min="0" step="0.001" value="0"></div>
+        <div class="field"><label for="batteryBrand">ยี่ห้อแบตเตอรี่</label><input id="batteryBrand" maxlength="100" placeholder="เช่น HAPPYSOLAR, Pylontech"></div>
+      </div>
+      <div class="inline-fields">
+        <div class="field"><label for="batteryModel">รุ่นแบตเตอรี่</label><input id="batteryModel" maxlength="120" placeholder="รุ่น (ถ้าทราบ)"></div>
+        <div class="field"><label for="solarInstalledAt">วันที่ติดตั้ง</label><input id="solarInstalledAt" type="date"></div>
+      </div>
+      <div class="field"><label for="solarNotes">หมายเหตุเพิ่มเติม</label><textarea id="solarNotes" rows="2" maxlength="1000" placeholder="สถานที่ติดตั้ง / ข้อมูลเพิ่มเติม"></textarea></div>
+      <div class="field"><label for="solarEvidenceFiles">ภาพประกอบหลักฐาน 4 ภาพ (JPG, PNG, WebP หรือ HEIC ไม่เกิน 10 MB ต่อภาพ)</label><input id="solarEvidenceFiles" type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple><small id="solarEvidenceCount" class="muted">เลือกภาพให้ครบ 4 ภาพ</small></div>
+      <button id="submitSolarApplication">ส่งข้อมูลให้แอดมินตรวจสอบ</button>
+      <div id="solarSubmitMsg" class="status" role="status"></div>
+      <div class="divider-label">สถานะคำขอของฉัน</div><div id="solarMyApplications" class="list"><div class="empty">ยังไม่มีคำขอลงทะเบียน</div></div>
+    </div>
+    <p class="muted small">*อัตรา 35 CARBX ต่อคาร์บอนเครดิต 1 ตัน จะใช้กับปริมาณ CO₂e ที่ผ่านการตรวจสอบแล้วเท่านั้น ไม่ใช่การรับรองจากภาพถ่ายเพียงอย่างเดียว</p></section>
   <section id="profile" class="section panel"><h2>บัญชีและความเป็นส่วนตัว</h2><label class="privacy-setting"><input id="privacyToggle" type="checkbox"><span>ซ่อนยอด CARBX และตัวเลขสำคัญบนหน้าจอเครื่องนี้</span></label><div class="field"><label for="profileName">ชื่อสมาชิก (กรอกหรือแก้ไขหลังเข้าสู่ระบบ)</label><input id="profileName" maxlength="80" placeholder="ชื่อที่ต้องการแสดง"></div><button id="saveProfileName" class="secondary">บันทึกชื่อสมาชิก</button><div id="profileMsg" class="status" role="status"></div><div class="list"><div class="item"><div><small>ชื่อสมาชิก</small><strong id="pname">—</strong></div></div><div class="item"><div><small>อีเมล</small><strong id="pemail">—</strong></div></div><div class="item"><div><small>วันที่สมัคร</small><strong id="pdate">—</strong></div></div><div class="item"><div><small>รหัสสมาชิก</small><strong id="pid">—</strong></div></div></div><div class="notice">ระบบเปิดดูข้อมูลส่วนตัวของบัญชีที่เข้าสู่ระบบเท่านั้น การแลกคืนและซื้อขายยังปิดใช้งาน ส่วนการโอนจะขึ้นอยู่กับสถานะที่ระบบอนุมัติ</div></section>
 
   <section id="admin" class="section panel hidden">
@@ -277,11 +304,14 @@ body:before,body:after{content:none!important;display:none!important;background:
         <div class="field"><label for="acCode">รหัสใบรับรอง / Serial</label><input id="acCode" placeholder="เลขที่ใบรับรอง"></div><div class="field"><label for="acType">ประเภทสินทรัพย์</label><select id="acType"><option value="carbon_credit">คาร์บอนเครดิต</option><option value="rec">REC</option></select></div><div class="field"><label for="acStandard">มาตรฐาน</label><input id="acStandard" placeholder="T-VER, I-REC, Gold Standard"></div><div class="field"><label for="acRegistry">Registry / หน่วยงานผู้ออก</label><input id="acRegistry"></div><div class="inline-fields"><div class="field"><label for="acQty">ปริมาณ</label><input id="acQty" type="number" min="0.000001" step="0.000001"></div><div class="field"><label for="acUnit">หน่วย</label><select id="acUnit"><option value="tCO2e">tCO2e</option><option value="MWh">MWh</option></select></div></div><div class="inline-fields"><div class="field"><label for="acVintage">ปี Vintage</label><input id="acVintage" type="number" min="1990" max="2200"></div><div class="field"><label for="acOwner">เจ้าของปัจจุบัน</label><input id="acOwner"></div></div><div class="field"><label for="acCustody">เลขอ้างอิง Custody</label><input id="acCustody"></div><div class="field"><label for="acEvidence">ลิงก์หลักฐาน</label><input id="acEvidence" type="url" placeholder="https://..."></div><div class="admin-form-actions"><button id="saveCertificate">บันทึกใบรับรอง</button><div id="certificateMsg" class="status"></div></div>
       </div><div class="divider-label">รายการใบรับรอง</div><div id="certificateList" class="list"></div></div>
       <div id="holdingsAdminBlock" class="admin-block hidden"><h3>ภาพรวมสินทรัพย์สำรอง</h3><div id="holdingsAdminList" class="list"></div></div>
+      <div id="solarInstallAdminBlock" class="admin-block hidden"><h3>ตรวจสอบคำขอลงทะเบียนโซลาร์เซลล์</h3><p class="muted small">ตรวจข้อมูลอุปกรณ์และภาพหลักฐานก่อนอนุมัติการติดตั้ง</p><div id="solarAdminApplications" class="list"><div class="empty">ยังไม่มีคำขอ</div></div></div>
     </div>
     <div class="admin-pane" data-admin-pane="finance">
       <div id="transactionAdminBlock" class="admin-block hidden"><h3>รายการธุรกรรมล่าสุด</h3><div id="transactionAdminList" class="list"><div class="empty">ยังไม่มีข้อมูล</div></div></div>
       <div id="treasuryAdminBlock" class="admin-block hidden"><h3>บัญชีเงินสำรอง / Treasury</h3><div id="treasuryAdminList" class="list"><div class="empty">ยังไม่มีข้อมูล</div></div></div>
       <div id="rewardAdminBlock" class="admin-block hidden"><h3>อัตราแลกรางวัล</h3><div id="rewardRateList" class="list"></div><div id="rewardRateEditor" class="hidden"><div class="admin-form"><div class="field"><label for="rrToken">จำนวน CARBX</label><input id="rrToken" type="number" min="0.000001" step="0.000001"></div><div class="field"><label for="rrBaht">มูลค่ารางวัล (บาท)</label><input id="rrBaht" type="number" min="0.01" step="0.01"></div></div><button id="saveRewardRate">สร้างอัตรารางวัล</button><div id="rewardRateMsg" class="status"></div></div></div>
+      <div id="solarPayoutAdminBlock" class="admin-block hidden"><h3>ควบคุมการจ่าย CARBX จากกระเป๋ากลาง</h3><div id="solarPayoutStatus" class="notice">กำลังตรวจสอบสถานะ…</div><div class="admin-actions"><button id="solarPayoutToggle" class="secondary">ระงับการจ่ายอัตโนมัติ</button><button id="solarPayoutProcess" class="secondary">ประมวลผลรายการค้าง</button></div><div id="solarPayoutMsg" class="status"></div><div class="divider-label">ประวัติสิทธิ์คาร์บอน</div><div id="solarRewardClaims" class="list"></div></div>
+      <div id="specialGrantAdminBlock" class="admin-block hidden"><h3>คำขอให้ CARBX เพิ่มกรณีพิเศษ (ไม่เกิน 10,000,000)</h3><p class="muted small">แอดมินสร้างคำขอได้ แต่การอนุมัติและโอนจริงทำได้โดยเจ้าของระบบเท่านั้น</p><div class="inline-fields"><div class="field"><label for="specialGrantEmail">อีเมลสมาชิกผู้รับ</label><input id="specialGrantEmail" type="email" placeholder="member@example.com"></div><div class="field"><label for="specialGrantAmount">จำนวน CARBX (สูงสุด 10 ล้าน)</label><input id="specialGrantAmount" type="number" min="0.00000001" max="10000000" step="0.00000001"></div></div><div class="field"><label for="specialGrantReason">เหตุผลประกอบ</label><textarea id="specialGrantReason" rows="2" maxlength="500"></textarea></div><button id="specialGrantSubmit">ส่งคำขอให้เจ้าของอนุมัติ</button><div id="specialGrantMsg" class="status"></div><div class="divider-label">รายการคำขอพิเศษ</div><div id="specialGrantList" class="list"></div></div>
     </div>
     <div class="admin-pane" data-admin-pane="audit">
       <div id="tokenEconomyAdminBlock" class="admin-block hidden">
@@ -499,10 +529,12 @@ async function loadData(user){
  $("overviewActivity").innerHTML=all.length?all.slice(0,4).map(x=>'<div class="item"><div><strong>'+esc(x.description||x.transaction_type||"กิจกรรม CARBX")+'</strong><small>'+esc(dateTime(x.created_at))+'</small></div><div class="amount '+(x.direction==="in"?"plus":"minus")+'">'+(x.direction==="in"?"+":"−")+fmt(x.amount)+'</div></div>').join(""):'<div class="empty">ยังไม่มีรายการล่าสุด</div>';
  const co2=(impacts.data||[]).reduce((a,x)=>a+Number(x.estimated_co2e_kg||0),0),gen=(energy.data||[]).reduce((a,x)=>a+Number(x.generated_kwh||0),0),exp=(energy.data||[]).reduce((a,x)=>a+Number(x.exported_kwh||0),0);$("co2").textContent=fmt(co2)+" kg";$("impactco2").textContent=fmt(co2)+" kg";$("energy").textContent=fmt(gen)+" kWh";$("exported").textContent=fmt(exp)+" kWh";
  $("installations").innerHTML=(inst.data||[]).length?(inst.data||[]).map(x=>'<div class="item"><div><strong>'+esc(x.installation_code||x.system_type||"ระบบพลังงาน")+'</strong><small>'+esc(x.system_type||"")+" · "+esc(x.installed_at||"ยังไม่ระบุวันติดตั้ง")+' · '+fmt(x.system_size_kw||0)+' kW</small></div><span class="pill">'+esc(x.commissioning_status||"รอตรวจสอบ")+'</span></div>').join(""):'<div class="empty">ยังไม่มีข้อมูลระบบติดตั้งที่ผูกกับบัญชีนี้</div>';
+ const apps=await db.from("solar_installation_applications").select("id,solar_capacity_kw,inverter_capacity_kw,inverter_brand,system_type,battery_capacity_kwh,battery_brand,status,review_note,created_at").eq("member_id",uid).order("created_at",{ascending:false}).limit(20);if(apps.error)throw apps.error;
+ listItems("solarMyApplications",apps.data||[],x=>'<div class="item"><div><strong>'+fmt(x.solar_capacity_kw)+' kW Solar · '+esc(x.inverter_brand)+' '+fmt(x.inverter_capacity_kw)+' kW</strong><small>'+esc(x.system_type)+' · Battery '+fmt(x.battery_capacity_kwh)+' kWh '+esc(x.battery_brand||"")+' · '+esc(dateTime(x.created_at))+(x.review_note?' · '+esc(x.review_note):"")+'</small></div><span class="pill">'+esc(x.status==="pending"?"รอตรวจสอบ":x.status==="approved"?"อนุมัติแล้ว":"ไม่อนุมัติ")+'</span></div>',"ยังไม่มีคำขอลงทะเบียน");
 }
 function listItems(id,rows,render,emptyText="ยังไม่มีข้อมูล"){const n=$(id);if(!n)return;n.innerHTML=rows&&rows.length?rows.map(render).join(""):'<div class="empty">'+esc(emptyText)+'</div>'}
 function setAdminTab(name){document.querySelectorAll("[data-admin-tab]").forEach(b=>b.classList.toggle("active",b.dataset.adminTab===name));document.querySelectorAll("[data-admin-pane]").forEach(p=>p.classList.toggle("active",p.dataset.adminPane===name));}
-function refreshAdminNav(){const groups={people:["staffAdminBlock","memberAdminBlock"],assets:["projectAdminBlock","certificateAdminBlock","holdingsAdminBlock"],finance:["transactionAdminBlock","treasuryAdminBlock","rewardAdminBlock"],audit:["auditAdminBlock"]};document.querySelectorAll("[data-admin-tab]").forEach(b=>{const key=b.dataset.adminTab;if(key==="overview"){b.classList.remove("hidden");return}const ids=groups[key]||[];b.classList.toggle("hidden",!ids.some(id=>$(id)&&!$(id).classList.contains("hidden")))});const active=document.querySelector("[data-admin-tab].active");if(!active||active.classList.contains("hidden"))setAdminTab("overview");}
+function refreshAdminNav(){const groups={people:["staffAdminBlock","memberAdminBlock"],assets:["projectAdminBlock","certificateAdminBlock","holdingsAdminBlock","solarInstallAdminBlock"],finance:["transactionAdminBlock","treasuryAdminBlock","rewardAdminBlock","solarPayoutAdminBlock","specialGrantAdminBlock"],audit:["auditAdminBlock"]};document.querySelectorAll("[data-admin-tab]").forEach(b=>{const key=b.dataset.adminTab;if(key==="overview"){b.classList.remove("hidden");return}const ids=groups[key]||[];b.classList.toggle("hidden",!ids.some(id=>$(id)&&!$(id).classList.contains("hidden")))});const active=document.querySelector("[data-admin-tab].active");if(!active||active.classList.contains("hidden"))setAdminTab("overview");}
 document.querySelectorAll("[data-admin-tab]").forEach(b=>b.addEventListener("click",()=>setAdminTab(b.dataset.adminTab)));
 async function loadTokenEconomyOverview(){
  const host=$("tokenEconomyContent");if(!host)return;host.innerHTML='<div class="empty">กำลังตรวจสอบภาพรวม CARBX จากฐานข้อมูลจริง…</div>';
@@ -592,14 +624,61 @@ async function loadTokenEconomyOverview(){
  const refresh=$("refreshTokenEconomy");if(refresh)refresh.addEventListener("click",()=>loadTokenEconomyOverview().catch(e=>{host.innerHTML='<div class="token-audit-error">โหลดข้อมูลไม่สำเร็จ: '+esc(e.message)+'</div>'}));const csvBtn=$("exportTokenomicsCsv");if(csvBtn)csvBtn.addEventListener("click",()=>{const rows=[["หัวข้อ","จำนวน CARBX","สถานะ"],["Max supply",total,"ตาม config"],["แผนหมุนเวียน",circulatingPlan,"แผนเสนอ"],["แผนสำรอง",reservePlan,"แผนเสนอ"],["Minted",minted,"ฐานข้อมูล"],["Treasury",treasury,"ฐานข้อมูลภายใน"],["สมาชิก available",walletAvailable,"ฐานข้อมูล"],["สมาชิก locked",walletLocked,"ฐานข้อมูล"],["Minted remaining",mintedRemaining,"คำนวณ"],["Circulation: Rewards",rewardCap,"แผนตาม config"],["Circulation: Member incentives",circulatingPlan*.15,"แผนเสนอ"],["Circulation: Carbon projects",circulatingPlan*.20,"แผนเสนอ"],["Circulation: Community",circulatingPlan*.15,"แผนเสนอ"],["Circulation: Liquidity",circulatingPlan*.15,"แผนเสนอ"],["Circulation: Ecosystem",circulatingPlan*.15,"แผนเสนอ"],["Circulation: Partners",circulatingPlan*.10,"แผนเสนอ"],["Circulation: Operations",circulatingPlan*.05,"แผนเสนอ"],["Circulation: Subreserve",circulationUnassigned,"แผนเสนอ/ส่วนคงเหลือ"],["Reserve: Backing",reservePlan*.40,"แผนเสนอ"],["Reserve: Carbon/project",reservePlan*.20,"แผนเสนอ"],["Reserve: Strategic",reservePlan*.15,"แผนเสนอ"],["Reserve: Stability",reservePlan*.10,"แผนเสนอ"],["Reserve: Risk",reservePlan*.05,"แผนเสนอ"],["Reserve: Emergency",reservePlan*.05,"แผนเสนอ"],["Reserve: Technology",reservePlan*.05,"แผนเสนอ"]];const csv="\ufeff"+rows.map(r=>r.map(v=>"\""+String(v).replace(/\"/g,"\"\"")+"\"").join(",")).join("\r\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="CARBX-tokenomics-report.csv";a.click();URL.revokeObjectURL(url)});const printBtn=$("printTokenomics");if(printBtn)printBtn.addEventListener("click",()=>window.print());
 }
 
+
+async function loadSolarAdminApplications(){
+ const q=await db.from("solar_installation_applications").select("id,member_id,solar_capacity_kw,inverter_capacity_kw,inverter_brand,inverter_model,system_type,battery_capacity_kwh,battery_brand,battery_model,installed_at,notes,status,created_at").order("created_at",{ascending:false}).limit(100);
+ if(q.error)throw q.error;
+ const rows=q.data||[];
+ const ids=[...new Set(rows.map(x=>x.member_id))];
+ const profiles=ids.length?await db.from("member_profiles").select("user_id,email,display_name").in("user_id",ids):{data:[],error:null};
+ if(profiles.error)throw profiles.error;
+ const pm=new Map((profiles.data||[]).map(x=>[x.user_id,x]));
+ const cards=await Promise.all(rows.map(async x=>{
+  const ev=await db.from("solar_installation_evidence").select("object_path").eq("application_id",x.id);
+  if(ev.error)throw ev.error;
+  const links=await Promise.all((ev.data||[]).map(async (v,i)=>{
+   const signed=await supabase.storage.from("solar-installation-evidence").createSignedUrl(v.object_path,600);
+   return signed.error?"":'<a class="small" style="margin-right:9px;color:#9ee6bd" target="_blank" rel="noopener" href="'+esc(signed.data.signedUrl)+'">ภาพ '+(i+1)+'</a>';
+  }));
+  const p=pm.get(x.member_id)||{};
+  return '<div class="admin-block"><div class="item"><div><strong>'+esc(p.display_name||p.email||x.member_id)+'</strong><small>'+esc(p.email||x.member_id)+' · '+esc(dateTime(x.created_at))+'</small></div><span class="pill">'+esc(x.status)+'</span></div><div class="small" style="margin:10px 0;line-height:1.8">แผง '+fmt(x.solar_capacity_kw)+' kW · อินเวอร์เตอร์ '+esc(x.inverter_brand)+' '+fmt(x.inverter_capacity_kw)+' kW '+esc(x.inverter_model||"")+'<br>ระบบ '+esc(x.system_type)+' · แบตเตอรี่ '+fmt(x.battery_capacity_kwh)+' kWh '+esc(x.battery_brand||"ไม่มี")+' '+esc(x.battery_model||"")+'<br>วันที่ติดตั้ง '+esc(x.installed_at||"ไม่ระบุ")+'<br>หมายเหตุ '+esc(x.notes||"—")+'</div><div>'+links.join("")+'</div>'+(x.status==="pending"&& (can("projects.manage")||can("certificates.verify")||can("*"))?'<div class="admin-actions" style="margin-top:12px"><button data-solar-review="'+esc(x.id)+'" data-decision="approve">อนุมัติข้อมูลติดตั้ง</button><button class="danger" data-solar-review="'+esc(x.id)+'" data-decision="reject">ไม่อนุมัติ</button></div>':"")+'</div>';
+ }));
+ listItems("solarAdminApplications",cards, x=>x,"ยังไม่มีคำขอลงทะเบียนโซลาร์เซลล์");
+}
+async function loadSolarPayoutData(){
+ const [control,claims,treasury]=await Promise.all([
+  db.from("solar_reward_controls").select("auto_payout_enabled,tokens_per_tonne,updated_at").eq("control_key","main").maybeSingle(),
+  db.from("solar_reward_claims").select("id,member_id,carbon_tonnes,token_amount,status,paid_at,created_at").order("created_at",{ascending:false}).limit(60),
+  db.from("token_treasury").select("balance").eq("treasury_key","main").maybeSingle()
+ ]);
+ for(const x of [control,claims,treasury])if(x.error)throw x.error;
+ const enabled=control.data?.auto_payout_enabled===true;
+ $("solarPayoutStatus").textContent=(enabled?"เปิดจ่ายอัตโนมัติ":"ระงับการจ่ายอัตโนมัติ")+" · อัตรา "+fmt(control.data?.tokens_per_tonne||35)+" CARBX/ตัน · กระเป๋ากลาง "+fmt(treasury.data?.balance||0)+" CARBX";
+ $("solarPayoutToggle").textContent=enabled?"ระงับการจ่ายอัตโนมัติ":"เปิดจ่ายอัตโนมัติ";
+ $("solarPayoutToggle").dataset.enabled=String(enabled);
+ listItems("solarRewardClaims",claims.data||[],x=>'<div class="item"><div><strong>'+fmt(x.carbon_tonnes)+' tCO₂e → '+fmt(x.token_amount)+' CARBX</strong><small>'+esc(x.status)+' · '+esc(dateTime(x.paid_at||x.created_at))+' · '+esc(x.member_id)+'</small></div><span class="pill">'+(x.status==="paid"?"จ่ายแล้ว":x.status==="pending"?"รอจ่าย":x.status==="paused"?"พักไว้":"ตรวจสอบ")+'</span></div>',"ยังไม่มีรายการคาร์บอนเครดิต");
+}
+async function loadSpecialGrantRequests(){
+ const q=await db.from("carbx_special_grant_requests").select("id,member_id,amount,reason,status,requested_by,created_at").order("created_at",{ascending:false}).limit(100);
+ if(q.error)throw q.error;
+ const rows=q.data||[],ids=[...new Set(rows.map(x=>x.member_id))];
+ const p=ids.length?await db.from("member_profiles").select("user_id,email,display_name").in("user_id",ids):{data:[],error:null};
+ if(p.error)throw p.error;
+ const pm=new Map((p.data||[]).map(x=>[x.user_id,x]));
+ listItems("specialGrantList",rows,x=>{const m=pm.get(x.member_id)||{};return '<div class="item"><div><strong>'+fmt(x.amount)+' CARBX · '+esc(m.email||x.member_id)+'</strong><small>'+esc(x.reason)+' · '+esc(x.status)+' · '+esc(dateTime(x.created_at))+'</small></div>'+(activeAdmin?.admin_role==="owner"&&x.status==="pending"?'<div class="admin-actions"><button data-special-decision="'+esc(x.id)+'" data-approve="true">อนุมัติและโอน</button><button class="danger" data-special-decision="'+esc(x.id)+'" data-approve="false">ปฏิเสธ</button></div>':'<span class="pill">'+esc(x.status)+'</span>')+'</div>';}, "ยังไม่มีคำขอพิเศษ");
+}
+
 async function loadAdmin(user){
  const {data:admin,error:adminError}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",user.id).eq("is_active",true).maybeSingle();if(adminError)throw adminError;if(!admin)throw new Error("บัญชีนี้ไม่มีสิทธิ์แอดมิน");activeAdmin=admin;
  const {data:permRows,error:permError}=await db.from("admin_role_permissions").select("permission_code").eq("admin_role",admin.admin_role);if(permError)throw permError;adminPermissions=new Set((permRows||[]).map(x=>x.permission_code));
  const full=can("*");const roleName=roleLabels[admin.admin_role]||"แอดมิน";$("adminRole").textContent="บัญชี: "+(user.email||"แอดมิน")+" · "+roleName;const allowed=[...adminPermissions].filter(x=>x!=="*");$("adminPermissionSummary").textContent=full?"บัญชีนี้ได้รับสิทธิ์เต็มระบบ":"เมนูที่ได้รับสิทธิ์: "+(allowed.length?allowed.join(" · "):"ยังไม่มีสิทธิ์เพิ่มเติม");
  const projectRead=can("projects.read")||can("projects.manage"),certRead=can("certificates.read")||can("certificates.manage")||can("certificates.verify");
- show("projectAdminBlock",projectRead);show("projectEditor",can("projects.manage"));show("certificateAdminBlock",certRead);show("certificateEditor",can("certificates.manage"));
+ show("projectAdminBlock",projectRead);show("projectEditor",can("projects.manage"));show("certificateAdminBlock",certRead);show("certificateEditor",can("certificates.manage"));show("solarInstallAdminBlock",projectRead||can("certificates.verify")||full);show("solarPayoutAdminBlock",can("rewards.manage")||full);show("specialGrantAdminBlock",can("rewards.manage")||full);
  show("memberAdminBlock",can("members.read"));show("transactionAdminBlock",can("transactions.read"));show("auditAdminBlock",can("audit.read"));show("tokenEconomyAdminBlock",admin.admin_role==="owner");show("holdingsAdminBlock",can("holdings.read")||can("holdings.manage"));show("treasuryAdminBlock",can("treasury.read"));show("rewardAdminBlock",can("rewards.manage"));show("rewardRateEditor",can("rewards.manage"));show("adminSummaryBlock",full);show("staffAdminBlock",full);show("adminNoAccess",!full&&!projectRead&&!certRead&&!can("members.read")&&!can("transactions.read")&&!can("audit.read")&&!can("holdings.read")&&!can("holdings.manage")&&!can("treasury.read")&&!can("rewards.manage"));refreshAdminNav();setAdminTab("overview");
  const jobs=[];
+ if(projectRead||can("certificates.verify")||full)jobs.push(loadSolarAdminApplications());
+ if(can("rewards.manage")||full)jobs.push(loadSolarPayoutData());
+ if(admin.admin_role==="owner")jobs.push(loadSpecialGrantRequests());
  if(admin.admin_role==="owner")jobs.push(loadTokenEconomyOverview());
  if(projectRead)jobs.push((async()=>{const r=await db.from("carbon_asset_projects").select("id,project_code,project_name,owner_name,province,installed_capacity_kw,project_status,data_status,created_at").order("created_at",{ascending:false}).limit(100);if(r.error)throw r.error;const ps=r.data||[];listItems("projectList",ps,x=>'<div class="item"><div><strong>'+esc(x.project_code||"ไม่ระบุรหัส")+' · '+esc(x.project_name)+'</strong><small>'+esc(x.owner_name||"ไม่ระบุเจ้าของ")+' · '+esc(x.province||"ไม่ระบุพื้นที่")+' · '+fmt(x.installed_capacity_kw||0)+' kW</small></div><span class="pill">'+esc(x.project_status||x.data_status||"registered")+'</span></div>',"ยังไม่มีโครงการในทะเบียน")})());
  if(certRead)jobs.push((async()=>{const r=await db.from("carbon_asset_certificates").select("id,certificate_code,asset_type,standard_name,quantity,unit,vintage_year,owner_name,document_status,created_at").order("created_at",{ascending:false}).limit(100);if(r.error)throw r.error;const cs=r.data||[];listItems("certificateList",cs,x=>'<div class="item"><div><strong>'+esc(x.certificate_code||"ไม่ระบุ Serial")+' · '+esc(x.asset_type)+'</strong><small>'+esc(x.standard_name||"ไม่ระบุมาตรฐาน")+' · '+fmt(x.quantity)+' '+esc(x.unit)+' · Vintage '+esc(x.vintage_year||"—")+'</small></div><div class="admin-actions"><span class="pill">'+esc(x.document_status)+'</span>'+(can("certificates.verify")?'<button class="secondary" data-verify-cert="'+esc(x.id)+'">ตรวจสอบ</button>':"")+'</div></div>',"ยังไม่มีใบรับรองในทะเบียน")})());
@@ -683,6 +762,84 @@ const {data:{session}}=await supabase.auth.getSession();
 if(authParams.get("auth")==="recovery"||location.hash.includes("type=recovery")){ $("login").classList.add("hidden");$("portalChoice").classList.add("hidden");$("registerPanel").classList.add("hidden"); if(session){$("recovery").classList.remove("hidden");}else{status("loginmsg","ลิงก์ตั้งรหัสผ่านไม่สมบูรณ์หรือหมดอายุ กรุณาขอลิงก์ใหม่",true);} }
 else if(session){await showSession(session);}
 else if(authParams.get("auth")==="confirmed"){ $("login").classList.remove("hidden");$("portalChoice").classList.remove("hidden");$("registerPanel").classList.add("hidden");status("loginmsg","ยืนยันอีเมลเรียบร้อยแล้ว กลับเข้าสู่ระบบ CARBONTOKEN ได้เลย");}
+
+$("solarEvidenceFiles").addEventListener("change",e=>{const files=Array.from(e.target.files||[]);$("solarEvidenceCount").textContent=files.length+" / 4 ภาพ đã chọn".replace("đã chọn","เลือกแล้ว");});
+$("submitSolarApplication").addEventListener("click",async()=>{
+ const {data:{user}}=await supabase.auth.getUser();if(!user){status("solarSubmitMsg","กรุณาเข้าสู่ระบบก่อน",true);return}
+ const files=Array.from($("solarEvidenceFiles").files||[]);
+ const solar=Number($("solarCapacity").value),inv=Number($("inverterCapacity").value),battery=Number($("batteryCapacity").value||0);
+ if(!(solar>0&&inv>0)||!$("inverterBrand").value.trim()||!(battery>=0)){status("solarSubmitMsg","กรุณากรอกขนาดระบบและยี่ห้ออินเวอร์เตอร์ให้ครบ",true);return}
+ if(battery>0&&!$("batteryBrand").value.trim()){status("solarSubmitMsg","กรุณาระบุยี่ห้อแบตเตอรี่ หรือใส่ขนาดแบตเตอรี่เป็น 0 หากไม่มี",true);return}
+ if(files.length!==4){status("solarSubmitMsg","ต้องแนบภาพหลักฐานให้ครบ 4 ภาพ",true);return}
+ if(files.some(x=>!["image/jpeg","image/png","image/webp","image/heic"].includes(x.type)||x.size>10*1024*1024)){status("solarSubmitMsg","ภาพต้องเป็น JPG, PNG, WebP หรือ HEIC และไม่เกิน 10 MB ต่อภาพ",true);return}
+ const btn=$("submitSolarApplication");btn.disabled=true;const paths=[];
+ try{
+  status("solarSubmitMsg","กำลังอัปโหลดภาพหลักฐาน…");
+  for(const file of files){
+   const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"");
+   const path=user.id+"/"+crypto.randomUUID()+"."+ext;
+   const up=await supabase.storage.from("solar-installation-evidence").upload(path,file,{upsert:false,contentType:file.type});
+   if(up.error)throw up.error;paths.push(path);
+  }
+  status("solarSubmitMsg","กำลังส่งข้อมูลให้แอดมินตรวจสอบ…");
+  const {data,error}=await db.rpc("member_submit_solar_application",{
+   p_solar_capacity_kw:solar,p_inverter_capacity_kw:inv,p_inverter_brand:$("inverterBrand").value.trim(),
+   p_inverter_model:$("inverterModel").value.trim()||null,p_system_type:$("solarSystemType").value,
+   p_battery_capacity_kwh:battery,p_battery_brand:$("batteryBrand").value.trim()||null,
+   p_battery_model:$("batteryModel").value.trim()||null,p_installed_at:$("solarInstalledAt").value||null,
+   p_notes:$("solarNotes").value.trim()||null,p_evidence_paths:paths
+  });
+  if(error)throw error;
+  status("solarSubmitMsg","ส่งคำขอเรียบร้อยแล้ว · รอแอดมินตรวจสอบ");
+  ["solarCapacity","inverterCapacity","inverterBrand","inverterModel","batteryBrand","batteryModel","solarInstalledAt","solarNotes"].forEach(id=>$(id).value="");
+  $("batteryCapacity").value="0";$("solarEvidenceFiles").value="";$("solarEvidenceCount").textContent="เลือกภาพให้ครบ 4 ภาพ";
+  await loadData(user);
+ }catch(e){
+  if(paths.length)await supabase.storage.from("solar-installation-evidence").remove(paths);
+  status("solarSubmitMsg","ส่งข้อมูลไม่สำเร็จ: "+(e.message||"กรุณาลองใหม่"),true);
+ }finally{btn.disabled=false}
+});
+$("solarAdminApplications").addEventListener("click",async e=>{
+ const b=e.target.closest("[data-solar-review]");if(!b)return;
+ const approve=b.dataset.decision==="approve";const note=prompt(approve?"หมายเหตุการอนุมัติ (เว้นว่างได้)":"ระบุเหตุผลที่ไม่อนุมัติ","");
+ if(!approve&&!note?.trim())return;
+ if(!confirm(approve?"ยืนยันอนุมัติข้อมูลระบบโซลาร์เซลล์?":"ยืนยันไม่อนุมัติคำขอนี้?"))return;
+ b.disabled=true;
+ try{const {error}=await db.rpc("admin_review_solar_application",{p_application_id:b.dataset.solarReview,p_approve:approve,p_note:note||null});if(error)throw error;await loadSolarAdminApplications();status("solarPayoutMsg","บันทึกผลตรวจสอบแล้ว");}
+ catch(err){alert("ตรวจสอบไม่สำเร็จ: "+err.message)}finally{b.disabled=false}
+});
+$("solarPayoutToggle").addEventListener("click",async()=>{
+ const next=$("solarPayoutToggle").dataset.enabled!=="true";
+ if(!confirm(next?"ยืนยันเปิดการจ่าย CARBX อัตโนมัติจากกระเป๋ากลาง?":"ยืนยันระงับการจ่าย CARBX อัตโนมัติ?"))return;
+ const b=$("solarPayoutToggle");b.disabled=true;
+ try{const {error}=await db.rpc("admin_set_solar_payout_enabled",{p_enabled:next});if(error)throw error;await loadSolarPayoutData();status("solarPayoutMsg",next?"เปิดการจ่ายอัตโนมัติแล้ว":"ระงับการจ่ายอัตโนมัติแล้ว")}
+ catch(e){status("solarPayoutMsg","เปลี่ยนสถานะไม่สำเร็จ: "+e.message,true)}finally{b.disabled=false}
+});
+$("solarPayoutProcess").addEventListener("click",async()=>{
+ const b=$("solarPayoutProcess");b.disabled=true;
+ try{const {data,error}=await db.rpc("admin_process_solar_rewards",{p_limit:1000});if(error)throw error;status("solarPayoutMsg","ประมวลผลรายการค้างแล้ว "+fmt(data)+" รายการ");await loadSolarPayoutData()}
+ catch(e){status("solarPayoutMsg","ประมวลผลไม่สำเร็จ: "+e.message,true)}finally{b.disabled=false}
+});
+$("specialGrantSubmit").addEventListener("click",async()=>{
+ const email=$("specialGrantEmail").value.trim().toLowerCase(),amount=Number($("specialGrantAmount").value),reason=$("specialGrantReason").value.trim();
+ if(!email.includes("@")||!(amount>0)||amount>10000000||!reason){status("specialGrantMsg","กรุณาตรวจอีเมล จำนวนไม่เกิน 10 ล้าน และเหตุผลให้ครบ",true);return}
+ const b=$("specialGrantSubmit");b.disabled=true;
+ try{
+  const p=await db.from("member_profiles").select("user_id").eq("email",email).maybeSingle();if(p.error)throw p.error;if(!p.data)throw new Error("ไม่พบสมาชิกด้วยอีเมลนี้");
+  const {error}=await db.rpc("admin_create_special_grant_request",{p_member_id:p.data.user_id,p_amount:amount,p_reason:reason});if(error)throw error;
+  status("specialGrantMsg","สร้างคำขอแล้ว · รอเจ้าของระบบอนุมัติ");$("specialGrantEmail").value="";$("specialGrantAmount").value="";$("specialGrantReason").value="";
+  await loadSpecialGrantRequests();
+ }catch(e){status("specialGrantMsg","สร้างคำขอไม่สำเร็จ: "+e.message,true)}finally{b.disabled=false}
+});
+$("specialGrantList").addEventListener("click",async e=>{
+ const b=e.target.closest("[data-special-decision]");if(!b||activeAdmin?.admin_role!=="owner")return;
+ const approve=b.dataset.approve==="true",note=prompt(approve?"หมายเหตุการอนุมัติ (เว้นว่างได้)":"เหตุผลที่ปฏิเสธ","");
+ if(!confirm(approve?"ยืนยันอนุมัติและโอน CARBX จากกระเป๋ากลาง?":"ยืนยันปฏิเสธคำขอพิเศษ?"))return;
+ b.disabled=true;
+ try{const {error}=await db.rpc("owner_decide_special_grant",{p_request_id:b.dataset.specialDecision,p_approve:approve,p_note:note||null});if(error)throw error;await loadSpecialGrantRequests();await loadSolarPayoutData()}
+ catch(err){alert("ดำเนินการไม่สำเร็จ: "+err.message)}finally{b.disabled=false}
+});
+
 </script>
 </body>
 </html>
