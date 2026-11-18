@@ -158,6 +158,18 @@ body{background:radial-gradient(ellipse at 12% 0%,#174b38 0,transparent 30%),rad
 body,body:before,.top,.panel,.hero,.login,.member-brand-hero,.carbx-orbit-hero{animation:none!important}
 
 /* RELEASE 21 — static app canvas; only the compact CARBX header emblem may animate */
+/* RELEASE 23 — animate only the CARBX emblem inside the member dashboard; keep app canvas static */
+.member-brand-logo{animation:carbx-breathe 3.6s ease-in-out infinite!important}
+.member-brand-satellite,.member-brand-satellite.s2,.member-brand-satellite.s3{animation:carbx-orbit 7s linear infinite!important}
+.member-brand-satellite.s2{animation-duration:5s!important;animation-direction:reverse!important}
+.member-brand-satellite.s3{animation-duration:11s!important}
+.member-brand-satellite:before{animation:none!important;opacity:1!important}
+.carbx-particle-field{display:block!important;animation:carbxParticleOrbit 8s linear infinite!important}
+.carbx-particle-field:before,.carbx-particle-field:after{display:block!important;animation:carbxParticlePulse 2.8s ease-in-out infinite!important}
+.carbx-particle-field:after{animation-delay:-1.4s!important}
+.member-brand-hero,.member-brand-stage{background-image:none!important}
+html,body{background:#07130f!important;background-image:none!important}
+
 html,body{background:#07130f!important;background-image:none!important;background-attachment:scroll!important}
 body:before,body:after{content:none!important;display:none!important;background:none!important}
 *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
