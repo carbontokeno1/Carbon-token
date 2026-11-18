@@ -641,14 +641,13 @@ async function loadSolarAdminApplications(){
  listItems("solarAdminApplications",cards, x=>x,"ยังไม่มีคำขอลงทะเบียนโซลาร์เซลล์");
 }
 async function loadSolarPayoutData(){
- const [control,claims,treasury]=await Promise.all([
-  db.from("solar_reward_controls").select("auto_payout_enabled,tokens_per_tonne,updated_at").eq("control_key","main").maybeSingle(),
-  db.from("solar_reward_claims").select("id,member_id,carbon_tonnes,token_amount,status,paid_at,created_at").order("created_at",{ascending:false}).limit(60),
-  db.from("token_treasury").select("balance").eq("treasury_key","main").maybeSingle()
+ const [control,claims]=await Promise.all([
+  db.rpc("admin_solar_reward_status"),
+  db.from("solar_reward_claims").select("id,member_id,carbon_tonnes,token_amount,status,paid_at,created_at").order("created_at",{ascending:false}).limit(60)
  ]);
- for(const x of [control,claims,treasury])if(x.error)throw x.error;
+ for(const x of [control,claims])if(x.error)throw x.error;
  const enabled=control.data?.auto_payout_enabled===true;
- $("solarPayoutStatus").textContent=(enabled?"เปิดจ่ายอัตโนมัติ":"ระงับการจ่ายอัตโนมัติ")+" · อัตรา "+fmt(control.data?.tokens_per_tonne||35)+" CARBX/ตัน · กระเป๋ากลาง "+fmt(treasury.data?.balance||0)+" CARBX";
+ $("solarPayoutStatus").textContent=(enabled?"เปิดจ่ายอัตโนมัติ":"ระงับการจ่ายอัตโนมัติ")+" · อัตรา "+fmt(control.data?.tokens_per_tonne||35)+" CARBX/ตัน · กระเป๋ากลาง "+fmt(control.data?.treasury_balance||0)+" CARBX · รอจ่าย "+fmt(control.data?.pending_claims||0)+" รายการ";
  $("solarPayoutToggle").textContent=enabled?"ระงับการจ่ายอัตโนมัติ":"เปิดจ่ายอัตโนมัติ";
  $("solarPayoutToggle").dataset.enabled=String(enabled);
  listItems("solarRewardClaims",claims.data||[],x=>'<div class="item"><div><strong>'+fmt(x.carbon_tonnes)+' tCO₂e → '+fmt(x.token_amount)+' CARBX</strong><small>'+esc(x.status)+' · '+esc(dateTime(x.paid_at||x.created_at))+' · '+esc(x.member_id)+'</small></div><span class="pill">'+(x.status==="paid"?"จ่ายแล้ว":x.status==="pending"?"รอจ่าย":x.status==="paused"?"พักไว้":"ตรวจสอบ")+'</span></div>',"ยังไม่มีรายการคาร์บอนเครดิต");
