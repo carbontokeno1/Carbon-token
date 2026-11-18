@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CARBONTOKEN">
 <link rel="manifest" href="/manifest.webmanifest">
-<title>CARBONTOKEN · Carbon Economy Platform</title>
+<title>CARBONTOKEN · CARBX Carbon Economy Platform</title>
 <meta name="application-version" content="3.0.0">
 <style>
 :root{color-scheme:dark;--bg:#07130f;--panel:#101f1a;--panel2:#142720;--line:#294437;--txt:#f2f7f3;--muted:#9bb3a7;--green:#55d69a;--green2:#1e8a63;--gold:#e9bd68;--blue:#8db9d9;--red:#ff9292;--shadow:0 24px 70px #0007}
@@ -619,7 +619,7 @@ $("registerBtn").addEventListener("click",async()=>{
  const btn=$("registerBtn");btn.disabled=true;status("registerMsg","กำลังส่งข้อมูลสมัครสมาชิก…");
  try{
   if(ident.kind==="email"){
-   const {data,error}=await supabase.auth.signUp({email:ident.email,password,options:{emailRedirectTo:"https://max.carbontokeno1.workers.dev/",data:{registration_source:"carbontoken_web"}}});
+   const {data,error}=await supabase.auth.signUp({email:ident.email,password,options:{emailRedirectTo:window.location.origin,data:{registration_source:"carbontoken_web"}}});
    if(error)throw error;
    if(data.session){status("registerMsg","สมัครสมาชิกสำเร็จ สามารถเข้าสู่ระบบได้ทันที");}
    else{status("registerMsg","ส่งคำขอสมัครแล้ว กรุณาเปิดอีเมลและกดยืนยันบัญชี หากไม่พบอีเมลให้ตรวจสอบ Spam");}
@@ -649,7 +649,7 @@ $("resendRegisterOtp").addEventListener("click",async()=>{
  const {error}=await supabase.auth.resend({type:"sms",phone:pendingRegisterPhone});
  status("registerMsg",error?"ส่ง OTP อีกครั้งไม่สำเร็จ: "+error.message:"ส่ง OTP อีกครั้งแล้ว",!!error);
 });
-$("forgotBtn").addEventListener("click",async()=>{const ident=identify($("email").value);if(!ident||ident.kind!=="email"){status("loginmsg","การรีเซ็ตรหัสผ่านตอนนี้ต้องใช้อีเมลที่ผูกกับบัญชี",true);return}status("loginmsg","กำลังส่งอีเมลตั้งรหัสผ่าน…");const {error}=await supabase.auth.resetPasswordForEmail(ident.email,{redirectTo:"https://max.carbontokeno1.workers.dev/"});status("loginmsg",error?"ส่งอีเมลไม่สำเร็จ: "+error.message:"ส่งลิงก์ตั้งรหัสผ่านแล้ว กรุณาเปิดอีเมลจากระบบ",!!error)});
+$("forgotBtn").addEventListener("click",async()=>{const ident=identify($("email").value);if(!ident||ident.kind!=="email"){status("loginmsg","การรีเซ็ตรหัสผ่านตอนนี้ต้องใช้อีเมลที่ผูกกับบัญชี",true);return}status("loginmsg","กำลังส่งอีเมลตั้งรหัสผ่าน…");const {error}=await supabase.auth.resetPasswordForEmail(ident.email,{redirectTo:window.location.origin});status("loginmsg",error?"ส่งอีเมลไม่สำเร็จ: "+error.message:"ส่งลิงก์ตั้งรหัสผ่านแล้ว กรุณาเปิดอีเมลจากระบบ",!!error)});
 $("savePassword").addEventListener("click",async()=>{const p=$("newPassword").value,c=$("confirmPassword").value;if(p.length<8){status("recoveryMsg","รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",true);return}if(p!==c){status("recoveryMsg","รหัสผ่านทั้งสองช่องไม่ตรงกัน",true);return}status("recoveryMsg","กำลังบันทึกรหัสผ่าน…");const {error}=await supabase.auth.updateUser({password:p});if(error){status("recoveryMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}status("recoveryMsg","ตั้งรหัสผ่านสำเร็จ");$("recovery").classList.add("hidden");$("newPassword").value="";$("confirmPassword").value="";const {data:{session}}=await supabase.auth.getSession();await showSession(session)});
 $("saveProfileName").addEventListener("click",async()=>{const name=$("profileName").value.trim();if(!name){status("profileMsg","กรุณากรอกชื่อสมาชิก",true);return}const {data:{user}}=await supabase.auth.getUser();if(!user){status("profileMsg","กรุณาเข้าสู่ระบบใหม่",true);return}status("profileMsg","กำลังบันทึกชื่อ…");const {data,error}=await db.from("member_profiles").update({display_name:name}).eq("user_id",user.id).select("user_id").maybeSingle();if(error){status("profileMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}if(!data){status("profileMsg","บันทึกไม่สำเร็จ: ไม่มีสิทธิ์แก้ไขข้อมูลบัญชี",true);return}await supabase.auth.updateUser({data:{display_name:name}});$("pname").textContent=name;$("member").textContent=name;status("profileMsg","บันทึกชื่อสมาชิกเรียบร้อยแล้ว")});
 $("logout").addEventListener("click",async()=>{await supabase.auth.signOut();location.reload()});
