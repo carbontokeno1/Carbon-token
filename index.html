@@ -172,7 +172,7 @@ body{background:radial-gradient(ellipse at 12% 0%,#174b38 0,transparent 30%),rad
     <button id="backPortalBtn" class="secondary" style="padding:8px 12px;margin:14px 0 4px">← กลับไปเลือกช่องทาง</button>
     <div id="portalHeading" class="eyebrow" style="margin-top:8px">MEMBER LOGIN</div>
     <h2 id="portalTitle" style="font-size:21px;margin:4px 0 10px">เข้าสู่ระบบสมาชิก</h2>
-    <div class="field"><label for="email">อีเมลหรือเบอร์โทรศัพท์</label><input id="email" type="text" inputmode="email" autocomplete="username" placeholder="name@example.com หรือ 08xxxxxxxx" required><small class="muted">สมาชิกใช้สมัครหรือเข้าสู่ระบบด้วยอีเมล หรือเบอร์โทรศัพท์อย่างใดอย่างหนึ่ง</small></div>
+    <div class="field"><label for="email">อีเมล</label><input id="email" type="email" inputmode="email" autocomplete="username" placeholder="name@example.com" required><small class="muted">เข้าสู่ระบบด้วยอีเมลที่ลงทะเบียนไว้</small></div>
     <div class="field"><label for="password">รหัสผ่าน</label><input id="password" type="password" autocomplete="current-password" placeholder="รหัสผ่าน" required></div>
     <label class="small muted" style="display:flex;align-items:center;gap:8px;margin:8px 0 14px"><input id="showPassword" type="checkbox" style="width:auto"> แสดงรหัสผ่าน</label>
     <button id="loginBtn" style="width:100%">เข้าสู่ระบบสมาชิก</button>
@@ -187,18 +187,14 @@ body{background:radial-gradient(ellipse at 12% 0%,#174b38 0,transparent 30%),rad
   <button id="backToLogin" class="secondary" style="padding:8px 12px;margin:0 0 14px">← กลับไปหน้าเข้าสู่ระบบ</button>
   <div class="eyebrow">CARBX · MEMBER REGISTRATION</div>
   <h2 style="font-size:23px;margin:5px 0 8px">สมัครสมาชิกใหม่</h2>
-  <p class="muted small">สร้างบัญชีสมาชิกด้วยอีเมลหรือเบอร์โทรศัพท์อย่างใดอย่างหนึ่ง</p>
-  <div class="field"><label for="regIdentifier">อีเมลหรือเบอร์โทรศัพท์</label><input id="regIdentifier" type="text" inputmode="email" autocomplete="username" placeholder="name@example.com หรือ 0812345678" required></div>
+  <p class="muted small">สร้างบัญชีสมาชิกด้วยอีเมลและยืนยันผ่านลิงก์ที่ส่งไปยังกล่องจดหมาย</p>
+  <div class="field"><label for="regIdentifier">อีเมล</label><input id="regIdentifier" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" required></div>
   <div class="field"><label for="regPassword">ตั้งรหัสผ่าน (อย่างน้อย 8 ตัวอักษร)</label><input id="regPassword" type="password" autocomplete="new-password" minlength="8" placeholder="ตั้งรหัสผ่าน" required></div>
   <label class="small muted" style="display:flex;align-items:center;gap:8px;margin:8px 0 14px"><input id="showRegPassword" type="checkbox" style="width:auto"> แสดงรหัสผ่าน</label>
   <button id="registerBtn" style="width:100%">สมัครสมาชิก / Create account / 注册新账户</button>
-  <div id="registerOtpBox" class="hidden" style="margin-top:14px">
-    <div class="field"><label for="registerOtp">รหัส OTP 6 หลัก</label><input id="registerOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="กรอกรหัส OTP"></div>
-    <button id="verifyRegisterOtp" style="width:100%">ยืนยัน OTP</button>
-    <button id="resendRegisterOtp" class="secondary" style="width:100%;margin-top:8px">ส่ง OTP อีกครั้ง</button>
-  </div>
+  <div id="registerOtpBox" class="hidden"></div>
   <div id="registerMsg" class="status" role="status"></div>
-  <p class="small muted" style="margin-top:14px">หากสมัครด้วยเบอร์โทรศัพท์ ต้องเปิด Phone Auth และตั้งค่า SMS Provider ในระบบก่อน</p>
+  <p class="small muted" style="margin-top:14px">หลังสมัคร กรุณาเปิดอีเมลและกดยืนยันบัญชีก่อนเข้าสู่ระบบ</p>
 </div>
 <div id="recovery" class="panel login hidden"><h2 style="font-size:22px;margin:5px 0">ตั้งรหัสผ่านใหม่</h2><p class="muted small">กรอกรหัสผ่านใหม่อย่างน้อย 8 ตัวอักษร</p><div class="field"><label for="newPassword">รหัสผ่านใหม่</label><input id="newPassword" type="password" autocomplete="new-password" placeholder="รหัสผ่านใหม่"></div><div class="field"><label for="confirmPassword">ยืนยันรหัสผ่านใหม่</label><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="กรอกรหัสผ่านอีกครั้ง"></div><label class="small muted" style="display:flex;align-items:center;gap:8px;margin:8px 0 14px"><input id="showRecoveryPassword" type="checkbox" style="width:auto"> แสดงรหัสผ่าน</label><button id="savePassword" style="width:100%">บันทึกรหัสผ่านใหม่</button><div id="recoveryMsg" class="status" role="status"></div></div>
 <main id="app" class="hidden">
@@ -447,10 +443,8 @@ applyLanguage(currentLanguage);
 const languageObserver=new MutationObserver(()=>{if(currentLanguage!=="th")applyLanguage(currentLanguage)});
 languageObserver.observe(document.body,{childList:true,subtree:true});
 
-function choosePortal(mode){portalMode=mode;$("portalChoice").classList.add("hidden");$("loginForm").classList.remove("hidden");$("portalHeading").textContent=mode==="admin"?"ADMIN ACCESS":"MEMBER LOGIN";$("portalTitle").textContent=mode==="admin"?"เข้าสู่ระบบแอดมิน":"เข้าสู่ระบบสมาชิก";$("loginBtn").textContent=mode==="admin"?"เข้าสู่ระบบแอดมิน":"เข้าสู่ระบบสมาชิก";$("signupBtn").classList.toggle("hidden",mode==="admin");$("forgotBtn").classList.toggle("hidden",mode==="admin");$("loginmsg").textContent="";$("signupOtpBox").classList.add("hidden");$("email").value="";$("password").value="";$("showPassword").checked=false;$("password").type="password";$("email").type="text";$("email").placeholder=mode==="admin"?"admin@example.com":"name@example.com หรือ 08xxxxxxxx";$("email").focus()}
-function normalizeThaiPhone(value){let p=String(value||"").replace(/[\s().-]/g,"");if(p.startsWith("00"))p="+"+p.slice(2);if(p.startsWith("0"))p="+66"+p.slice(1);if(/^66[0-9]{8,9}$/.test(p))p="+"+p;if(!p.startsWith("+"))return null;return /^\+[1-9][0-9]{7,14}$/.test(p)?p:null}
-function identify(value){const v=String(value||"").trim();if(v.includes("@")){const email=v.toLowerCase();return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)?{kind:"email",email}:null}const phone=normalizeThaiPhone(v);return phone?{kind:"phone",phone}:null}
-let pendingSignupPhone=null;
+function choosePortal(mode){portalMode=mode;$("portalChoice").classList.add("hidden");$("loginForm").classList.remove("hidden");$("portalHeading").textContent=mode==="admin"?"ADMIN ACCESS":"MEMBER LOGIN";$("portalTitle").textContent=mode==="admin"?"เข้าสู่ระบบแอดมิน":"เข้าสู่ระบบสมาชิก";$("loginBtn").textContent=mode==="admin"?"เข้าสู่ระบบแอดมิน":"เข้าสู่ระบบสมาชิก";$("signupBtn").classList.toggle("hidden",mode==="admin");$("forgotBtn").classList.toggle("hidden",mode==="admin");$("loginmsg").textContent="";$("signupOtpBox").classList.add("hidden");$("email").value="";$("password").value="";$("showPassword").checked=false;$("password").type="password";$("email").type="text";$("email").placeholder="name@example.com";$("email").focus()}
+function identify(value){const email=String(value||"").trim().toLowerCase();return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)?{kind:"email",email}:null}
 async function showSession(session){
  if(!session){activeAdmin=null;adminPermissions.clear();show("privacyButton",false);$("login").classList.remove("hidden");$("portalChoice").classList.remove("hidden");$("loginForm").classList.add("hidden");$("recovery").classList.add("hidden");$("registerPanel").classList.add("hidden");$("app").classList.add("hidden");$("logout").classList.add("hidden");$("bottom").classList.add("hidden");return}
  const {data:admin,error:adminError}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",session.user.id).maybeSingle();
@@ -601,53 +595,30 @@ $("privacyToggle").addEventListener("change",e=>setPrivacy(e.target.checked));
 $("showRecoveryPassword").addEventListener("change",e=>{$("newPassword").type=e.target.checked?"text":"password";$("confirmPassword").type=e.target.checked?"text":"password"});
 $("loginBtn").addEventListener("click",async()=>{
  const ident=identify($("email").value),password=$("password").value;
- if(!ident){status("loginmsg",portalMode==="admin"?"กรุณากรอกอีเมลแอดมินให้ถูกต้อง":"กรุณากรอกอีเมลหรือเบอร์โทรศัพท์ให้ถูกต้อง (เช่น 0812345678)",true);return}
+ if(!ident){status("loginmsg","กรุณากรอกอีเมลให้ถูกต้อง",true);return}
  if(portalMode==="admin"&&ident.kind!=="email"){status("loginmsg","บัญชีแอดมินต้องเข้าสู่ระบบด้วยอีเมล",true);return}
  if(!password){status("loginmsg","กรุณากรอกรหัสผ่าน",true);return}
  const btn=$("loginBtn");btn.disabled=true;status("loginmsg","กำลังตรวจสอบบัญชี…");
- try{const credentials=ident.kind==="email"?{email:ident.email,password}:{phone:ident.phone,password};const {data,error}=await supabase.auth.signInWithPassword(credentials);if(error)throw error;const {data:admin,error:roleError}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",data.user.id).maybeSingle();if(roleError)throw roleError;if(admin&&!admin.is_active){await supabase.auth.signOut();throw new Error("สิทธิ์แอดมินของบัญชีนี้ถูกปิดใช้งาน")};if(portalMode==="admin"&&!admin){await supabase.auth.signOut();throw new Error("บัญชีนี้ยังไม่ได้รับสิทธิ์แอดมิน")};if(portalMode==="member"&&admin){await supabase.auth.signOut();throw new Error("บัญชีนี้เป็นแอดมิน กรุณาเลือกช่องทางแอดมิน")};status("loginmsg","เข้าสู่ระบบสำเร็จ");}catch(e){status("loginmsg","เข้าสู่ระบบไม่สำเร็จ: "+(e.message||"กรุณาลองใหม่"),true)}finally{btn.disabled=false}
+ try{const credentials={email:ident.email,password};const {data,error}=await supabase.auth.signInWithPassword(credentials);if(error)throw error;const {data:admin,error:roleError}=await db.from("admin_users").select("admin_role,is_active").eq("user_id",data.user.id).maybeSingle();if(roleError)throw roleError;if(admin&&!admin.is_active){await supabase.auth.signOut();throw new Error("สิทธิ์แอดมินของบัญชีนี้ถูกปิดใช้งาน")};if(portalMode==="admin"&&!admin){await supabase.auth.signOut();throw new Error("บัญชีนี้ยังไม่ได้รับสิทธิ์แอดมิน")};if(portalMode==="member"&&admin){await supabase.auth.signOut();throw new Error("บัญชีนี้เป็นแอดมิน กรุณาเลือกช่องทางแอดมิน")};status("loginmsg","เข้าสู่ระบบสำเร็จ");}catch(e){status("loginmsg","เข้าสู่ระบบไม่สำเร็จ: "+(e.message||"กรุณาลองใหม่"),true)}finally{btn.disabled=false}
 });
 
 $("signupBtn").addEventListener("click",()=>{ $("loginForm").classList.add("hidden"); $("registerPanel").classList.remove("hidden"); $("regIdentifier").value=$("email").value.trim(); $("regPassword").value=""; $("registerMsg").textContent=""; $("registerOtpBox").classList.add("hidden"); $("regIdentifier").focus(); });
 $("backToLogin").addEventListener("click",()=>{ $("registerPanel").classList.add("hidden"); $("loginForm").classList.remove("hidden"); $("registerMsg").textContent=""; });
 $("showRegPassword").addEventListener("change",()=> $("regPassword").type=$("showRegPassword").checked?"text":"password");
-let pendingRegisterPhone=null;
 $("registerBtn").addEventListener("click",async()=>{
  const ident=identify($("regIdentifier").value),password=$("regPassword").value;
- if(!ident){status("registerMsg","กรุณากรอกอีเมลหรือเบอร์โทรศัพท์ให้ถูกต้อง",true);return}
+ if(!ident||ident.kind!=="email"){status("registerMsg","กรุณากรอกอีเมลให้ถูกต้อง",true);return}
  if(password.length<8){status("registerMsg","รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",true);return}
  const btn=$("registerBtn");btn.disabled=true;status("registerMsg","กำลังส่งข้อมูลสมัครสมาชิก…");
  try{
-  if(ident.kind==="email"){
-   const {data,error}=await supabase.auth.signUp({email:ident.email,password,options:{emailRedirectTo:window.location.origin,data:{registration_source:"carbontoken_web"}}});
-   if(error)throw error;
-   if(data.session){status("registerMsg","สมัครสมาชิกสำเร็จ สามารถเข้าสู่ระบบได้ทันที");}
-   else{status("registerMsg","ส่งคำขอสมัครแล้ว กรุณาเปิดอีเมลและกดยืนยันบัญชี หากไม่พบอีเมลให้ตรวจสอบ Spam");}
-  }else{
-   const {data,error}=await supabase.auth.signUp({phone:ident.phone,password,options:{channel:"sms"}});
-   if(error)throw error;
-   pendingRegisterPhone=ident.phone;$("registerOtpBox").classList.remove("hidden");
-   status("registerMsg","ส่งรหัส OTP แล้ว กรุณากรอกรหัส 6 หลัก");
-  }
+  const {data,error}=await supabase.auth.signUp({email:ident.email,password,options:{emailRedirectTo:window.location.origin,data:{registration_source:"carbontoken_web"}}});
+  if(error)throw error;
+  if(data.session){status("registerMsg","สมัครสมาชิกสำเร็จ สามารถเข้าสู่ระบบได้ทันที");}
+  else{status("registerMsg","ส่งคำขอสมัครแล้ว กรุณาเปิดอีเมลและกดยืนยันบัญชี หากไม่พบอีเมลให้ตรวจสอบ Spam");}
  }catch(e){
   const msg=e.message||"กรุณาลองใหม่";
-  if(msg.includes("phone_provider_disabled")||msg.toLowerCase().includes("phone signups are disabled"))status("registerMsg","ระบบสมัครด้วยเบอร์โทรศัพท์ยังไม่เปิดใน Supabase ขณะนี้ กรุณาสมัครด้วยอีเมลก่อน หรือเปิด Phone Auth และตั้งค่า SMS Provider",true);
-  else status("registerMsg","สมัครสมาชิกไม่สำเร็จ: "+msg,true);
+  status("registerMsg","สมัครสมาชิกไม่สำเร็จ: "+msg,true);
  }finally{btn.disabled=false}
-});
-$("verifyRegisterOtp").addEventListener("click",async()=>{
- const token=$("registerOtp").value.trim();
- if(!pendingRegisterPhone){status("registerMsg","กรุณาเริ่มสมัครด้วยเบอร์โทรศัพท์ใหม่",true);return}
- if(!/^\d{6}$/.test(token)){status("registerMsg","กรุณากรอกรหัส OTP 6 หลัก",true);return}
- const btn=$("verifyRegisterOtp");btn.disabled=true;status("registerMsg","กำลังยืนยันเบอร์โทรศัพท์…");
- try{const {data,error}=await supabase.auth.verifyOtp({phone:pendingRegisterPhone,token,type:"sms"});if(error)throw error;pendingRegisterPhone=null;status("registerMsg","ยืนยันเบอร์โทรศัพท์และสมัครสมาชิกสำเร็จ");if(data.session)await showSession(data.session);}
- catch(e){status("registerMsg","ยืนยัน OTP ไม่สำเร็จ: "+(e.message||"กรุณาตรวจสอบรหัส"),true)}
- finally{btn.disabled=false}
-});
-$("resendRegisterOtp").addEventListener("click",async()=>{
- if(!pendingRegisterPhone)return status("registerMsg","ไม่พบเบอร์ที่รอการยืนยัน",true);
- const {error}=await supabase.auth.resend({type:"sms",phone:pendingRegisterPhone});
- status("registerMsg",error?"ส่ง OTP อีกครั้งไม่สำเร็จ: "+error.message:"ส่ง OTP อีกครั้งแล้ว",!!error);
 });
 $("forgotBtn").addEventListener("click",async()=>{const ident=identify($("email").value);if(!ident||ident.kind!=="email"){status("loginmsg","การรีเซ็ตรหัสผ่านตอนนี้ต้องใช้อีเมลที่ผูกกับบัญชี",true);return}status("loginmsg","กำลังส่งอีเมลตั้งรหัสผ่าน…");const {error}=await supabase.auth.resetPasswordForEmail(ident.email,{redirectTo:window.location.origin});status("loginmsg",error?"ส่งอีเมลไม่สำเร็จ: "+error.message:"ส่งลิงก์ตั้งรหัสผ่านแล้ว กรุณาเปิดอีเมลจากระบบ",!!error)});
 $("savePassword").addEventListener("click",async()=>{const p=$("newPassword").value,c=$("confirmPassword").value;if(p.length<8){status("recoveryMsg","รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",true);return}if(p!==c){status("recoveryMsg","รหัสผ่านทั้งสองช่องไม่ตรงกัน",true);return}status("recoveryMsg","กำลังบันทึกรหัสผ่าน…");const {error}=await supabase.auth.updateUser({password:p});if(error){status("recoveryMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}status("recoveryMsg","ตั้งรหัสผ่านสำเร็จ");$("recovery").classList.add("hidden");$("newPassword").value="";$("confirmPassword").value="";const {data:{session}}=await supabase.auth.getSession();await showSession(session)});
