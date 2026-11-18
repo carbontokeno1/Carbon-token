@@ -646,3 +646,21 @@ const {data:{session}}=await supabase.auth.getSession();if(session)await showSes
 </script>
 </body>
 </html>
+
+/* RELEASE 19 — freeze every app/background animation; retain motion only around CARBX emblems */
+body{background-attachment:scroll!important;animation:none!important}
+body:before{display:none!important;animation:none!important}
+*,*:before,*:after{animation:none!important}
+.logo{animation:carbxLogoAura 3.8s ease-in-out infinite!important}
+.logo img{animation:carbxLogoGlow 2.7s ease-in-out infinite!important}
+.logo:before{animation:carbxHeaderOrbit 4.6s linear infinite!important}
+.logo:after{animation:carbxHeaderRing 2.9s ease-in-out infinite!important}
+.login-orb{animation:carbxLogoAura 3.8s ease-in-out infinite!important}
+.login-orb img{animation:carbxLogoGlow 2.7s ease-in-out infinite!important}
+.carbx-orbit-logo,.member-brand-logo{animation:carbx-breathe 3.6s ease-in-out infinite!important}
+.carbx-orbit-satellite,.member-brand-satellite{animation:carbx-orbit 7s linear infinite!important}
+.carbx-orbit-satellite.s2,.member-brand-satellite.s2{animation-duration:5s!important;animation-direction:reverse!important}
+.carbx-orbit-satellite.s3,.member-brand-satellite.s3{animation-duration:11s!important;animation-direction:normal!important}
+.carbx-particle-field{animation:carbxParticleOrbit 8s linear infinite!important}
+.carbx-particle-field:before,.carbx-particle-field:after{animation:carbxParticlePulse 2.8s ease-in-out infinite!important}
+.carbx-particle-field:after{animation-delay:-1.4s!important}
