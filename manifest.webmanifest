@@ -1,11 +1,9 @@
 {
-  "name": "CARBON TOKEN",
-  "short_name": "CARBON",
-  "description": "CARBON TOKEN digital carbon economy platform, member wallet and admin portal",
-  "start_url": "/",
-  "scope": "/",
+  "name": "CARBON TOKEN · CARBX",
+  "short_name": "CARBX",
+  "start_url": "/?release=9",
   "display": "standalone",
   "background_color": "#07130f",
   "theme_color": "#07130f",
-  "orientation": "portrait-primary"
+  "icons": []
 }
