@@ -631,7 +631,7 @@ $("registerBtn").addEventListener("click",async()=>{
  if(password.length<8){status("registerMsg","รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",true);return}
  const btn=$("registerBtn");btn.disabled=true;status("registerMsg","กำลังส่งข้อมูลสมัครสมาชิก…");
  try{
-  const {data,error}=await supabase.auth.signUp({email:ident.email,password,options:{emailRedirectTo:window.location.origin,data:{registration_source:"carbontoken_web"}}});
+  const {data,error}=await supabase.auth.signUp({email:ident.email,password,options:{emailRedirectTo:window.location.origin+"/?auth=confirmed",data:{registration_source:"carbontoken_web"}}});
   if(error)throw error;
   if(data.session){status("registerMsg","สมัครสมาชิกสำเร็จ สามารถเข้าสู่ระบบได้ทันที");}
   else{status("registerMsg","ส่งคำขอสมัครแล้ว กรุณาเปิดอีเมลและกดยืนยันบัญชี หากไม่พบอีเมลให้ตรวจสอบ Spam");}
@@ -640,7 +640,7 @@ $("registerBtn").addEventListener("click",async()=>{
   status("registerMsg","สมัครสมาชิกไม่สำเร็จ: "+msg,true);
  }finally{btn.disabled=false}
 });
-$("forgotBtn").addEventListener("click",async()=>{const ident=identify($("email").value);if(!ident){status("loginmsg","กรุณากรอกอีเมลบัญชีสมาชิกก่อนกดลืมรหัสผ่าน",true);return}const btn=$("forgotBtn");btn.disabled=true;status("loginmsg","กำลังขอส่งลิงก์ตั้งรหัสผ่าน…");try{const {error}=await supabase.auth.resetPasswordForEmail(ident.email,{redirectTo:window.location.origin+"/"});if(error)throw error;status("loginmsg","ระบบรับคำขอแล้ว หากอีเมลนี้มีบัญชี ให้ตรวจกล่องจดหมายและ Spam เพื่อเปิดลิงก์ตั้งรหัสผ่าน");}catch(e){status("loginmsg","ส่งลิงก์ไม่สำเร็จ: "+(e.message||"กรุณาลองใหม่"),true)}finally{btn.disabled=false}});
+$("forgotBtn").addEventListener("click",async()=>{const ident=identify($("email").value);if(!ident){status("loginmsg","กรุณากรอกอีเมลบัญชีสมาชิกก่อนกดลืมรหัสผ่าน",true);return}const btn=$("forgotBtn");btn.disabled=true;status("loginmsg","กำลังขอส่งลิงก์ตั้งรหัสผ่าน…");try{const {error}=await supabase.auth.resetPasswordForEmail(ident.email,{redirectTo:window.location.origin+"/?auth=recovery"});if(error)throw error;status("loginmsg","ระบบรับคำขอแล้ว หากอีเมลนี้มีบัญชี ให้ตรวจกล่องจดหมายและ Spam เพื่อเปิดลิงก์ตั้งรหัสผ่าน");}catch(e){status("loginmsg","ส่งลิงก์ไม่สำเร็จ: "+(e.message||"กรุณาลองใหม่"),true)}finally{btn.disabled=false}});
 $("savePassword").addEventListener("click",async()=>{const p=$("newPassword").value,c=$("confirmPassword").value;if(p.length<8){status("recoveryMsg","รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",true);return}if(p!==c){status("recoveryMsg","รหัสผ่านทั้งสองช่องไม่ตรงกัน",true);return}const btn=$("savePassword");btn.disabled=true;status("recoveryMsg","กำลังบันทึกรหัสผ่าน…");try{const {data,error}=await supabase.auth.updateUser({password:p});if(error)throw error;status("recoveryMsg","ตั้งรหัสผ่านสำเร็จ กรุณาเข้าสู่ระบบด้วยรหัสผ่านใหม่");$("newPassword").value="";$("confirmPassword").value="";$("recovery").classList.add("hidden");await supabase.auth.signOut();$("login").classList.remove("hidden");$("portalChoice").classList.remove("hidden");}catch(e){status("recoveryMsg","บันทึกไม่สำเร็จ: "+(e.message||"ลิงก์อาจหมดอายุ กรุณาขอลิงก์ใหม่"),true)}finally{btn.disabled=false}});
 $("saveProfileName").addEventListener("click",async()=>{const name=$("profileName").value.trim();if(!name){status("profileMsg","กรุณากรอกชื่อสมาชิก",true);return}const {data:{user}}=await supabase.auth.getUser();if(!user){status("profileMsg","กรุณาเข้าสู่ระบบใหม่",true);return}status("profileMsg","กำลังบันทึกชื่อ…");const {data,error}=await db.from("member_profiles").update({display_name:name}).eq("user_id",user.id).select("user_id").maybeSingle();if(error){status("profileMsg","บันทึกไม่สำเร็จ: "+error.message,true);return}if(!data){status("profileMsg","บันทึกไม่สำเร็จ: ไม่มีสิทธิ์แก้ไขข้อมูลบัญชี",true);return}await supabase.auth.updateUser({data:{display_name:name}});$("pname").textContent=name;$("member").textContent=name;status("profileMsg","บันทึกชื่อสมาชิกเรียบร้อยแล้ว")});
 $("logout").addEventListener("click",async()=>{await supabase.auth.signOut();location.reload()});
@@ -658,10 +658,19 @@ function activateTab(id){const tab=document.querySelector('[data-tab="'+id+'"]')
 document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>activateTab(b.dataset.tab)));
 document.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>activateTab(b.dataset.jump)));
 if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js",{scope:"/",updateViaCache:"none"}).catch(e=>console.warn("Offline shell unavailable",e))}
-supabase.auth.onAuthStateChange((event,session)=>{if(event==="PASSWORD_RECOVERY"){$("login").classList.add("hidden");$("portalChoice").classList.add("hidden");$("registerPanel").classList.add("hidden");$("recovery").classList.remove("hidden");return}if(event==="SIGNED_OUT")$("recovery").classList.add("hidden");setTimeout(()=>showSession(session).catch(e=>{console.error(e);alert("โหลดข้อมูลไม่สำเร็จ: "+e.message)}),0)});
+supabase.auth.onAuthStateChange((event,session)=>{
+ if(event==="PASSWORD_RECOVERY"||new URLSearchParams(location.search).get("auth")==="recovery"){ $("login").classList.add("hidden");$("portalChoice").classList.add("hidden");$("registerPanel").classList.add("hidden");$("recovery").classList.remove("hidden");return; }
+ if(event==="SIGNED_OUT")$("recovery").classList.add("hidden");
+ if(event==="SIGNED_IN"||event==="USER_UPDATED"){$("login").classList.add("hidden");$("portalChoice").classList.add("hidden");$("registerPanel").classList.add("hidden");}
+ setTimeout(()=>showSession(session).catch(e=>{console.error(e);alert("โหลดข้อมูลไม่สำเร็จ: "+e.message)}),0);
+});
+const authParams=new URLSearchParams(location.search);
+const authCode=authParams.get("code");
+if(authCode){ const {error}=await supabase.auth.exchangeCodeForSession(authCode); if(error){$("login").classList.remove("hidden");$("portalChoice").classList.remove("hidden");status("loginmsg","ยืนยันอีเมลไม่สำเร็จ: "+error.message+" กรุณาขอลิงก์ยืนยันใหม่",true);} authParams.delete("code");const clean=location.pathname+(authParams.toString()?"?"+authParams.toString():"")+location.hash;history.replaceState({},document.title,clean); }
 const {data:{session}}=await supabase.auth.getSession();
-if(window.location.hash.includes("type=recovery")&&session){$("login").classList.add("hidden");$("portalChoice").classList.add("hidden");$("registerPanel").classList.add("hidden");$("recovery").classList.remove("hidden");}
-else if(session)await showSession(session);
+if(authParams.get("auth")==="recovery"||location.hash.includes("type=recovery")){ $("login").classList.add("hidden");$("portalChoice").classList.add("hidden");$("registerPanel").classList.add("hidden"); if(session){$("recovery").classList.remove("hidden");}else{status("loginmsg","ลิงก์ตั้งรหัสผ่านไม่สมบูรณ์หรือหมดอายุ กรุณาขอลิงก์ใหม่",true);} }
+else if(session){await showSession(session);}
+else if(authParams.get("auth")==="confirmed"){ $("login").classList.remove("hidden");$("portalChoice").classList.remove("hidden");$("registerPanel").classList.add("hidden");status("loginmsg","ยืนยันอีเมลเรียบร้อยแล้ว กลับเข้าสู่ระบบ CARBONTOKEN ได้เลย");}
 </script>
 </body>
 </html>
