@@ -154,9 +154,8 @@ body{background:radial-gradient(ellipse at 12% 0%,#174b38 0,transparent 30%),rad
 @media(prefers-reduced-motion:reduce){.carbx-particle-field,.carbx-particle-field:before,.carbx-particle-field:after{animation:none!important}}
 
 
-/* RELEASE 17 — remove rotating background/orbit effects; keep CARBX logo and static styling */
-.carbx-particle-field,.carbx-orbit-satellite,.member-brand-satellite,.logo:before{display:none!important;animation:none!important}
-.logo,.logo img,.logo:after,.login-orb,.login-orb img,.carbx-orbit-logo,.member-brand-logo{animation:none!important}
+/* RELEASE 18 — keep motion effects confined to CARBX logo areas; app background remains static */
+body,body:before,.top,.panel,.hero,.login,.member-brand-hero,.carbx-orbit-hero{animation:none!important}
 </style>
 </head>
 <body>
