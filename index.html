@@ -664,3 +664,27 @@ body:before{display:none!important;animation:none!important}
 .carbx-particle-field{animation:carbxParticleOrbit 8s linear infinite!important}
 .carbx-particle-field:before,.carbx-particle-field:after{animation:carbxParticlePulse 2.8s ease-in-out infinite!important}
 .carbx-particle-field:after{animation-delay:-1.4s!important}
+
+
+/* RELEASE 20 — static app canvas; animation is limited to the small header CARBX logo only */
+html,body{background:#07130f!important;background-image:none!important;background-attachment:scroll!important}
+body:before{content:none!important;display:none!important;background:none!important}
+.top,.wrap,.panel,.login,.hero,.member-brand-hero,.carbx-orbit-hero,
+.admin-block,.admin-welcome,.token-audit-hero,.overview-block,.overview-action,
+.stat,.item,.tokenomics-pool,.token-allocation,.token-allocation-card{
+  animation:none!important;
+}
+.member-brand-hero,.carbx-orbit-hero{background:#0b1912!important}
+.member-brand-stage,.carbx-orbit-stage{background:none!important}
+.carbx-orbit-ring,.carbx-orbit-satellite,.carbx-orbit-logo,
+.member-brand-ring,.member-brand-satellite,.member-brand-logo,
+.login-orb,.login-orb img,.login-orb:before,.login-orb:after,
+.carbx-particle-field,.carbx-particle-field:before,.carbx-particle-field:after{
+  animation:none!important;
+}
+.carbx-particle-field{display:none!important}
+*,*:before,*:after{animation:none!important}
+.logo{animation:carbxLogoAura 3.8s ease-in-out infinite!important}
+.logo img{animation:carbxLogoGlow 2.7s ease-in-out infinite!important}
+.logo:before{animation:carbxHeaderOrbit 4.6s linear infinite!important}
+.logo:after{animation:carbxHeaderRing 2.9s ease-in-out infinite!important}
