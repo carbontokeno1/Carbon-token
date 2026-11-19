@@ -605,7 +605,6 @@ async function loadData(user){
  const mark=(name,r)=>{if(r?.error){failed.push(name);console.warn("CARBONTOKEN partial load:",name,r.error)}};
  [[ "กระเป๋า",wallet],["ธุรกรรม",tx],["รางวัล",rewards],["คาร์บอน",impacts],["พลังงาน",energy],["ระบบติดตั้ง",inst],["สถานะโอน",transferState],["สรุปโซลาร์",solarSummary],["คำขอโซลาร์",apps],["ผู้แนะนำ",referralRows]].forEach(([n,r])=>mark(n,r));
  if(!wallet.error&&wallet.data){const w=wallet.data;$("balance").textContent=fmt(w.available_balance);$("available").textContent=fmt(w.available_balance);$("locked").textContent=fmt(w.locked_balance)}
- else if(wallet.error){$("balance").textContent="—";$("available").textContent="—";$("locked").textContent="—"}
  if(!transferState.error){const enabled=transferState.data===true;$("transferNotice").textContent=enabled?"ระบบโอนภายในเปิดใช้งานแล้ว · ตรวจสอบอีเมลและยอดก่อนยืนยันทุกครั้ง":"ระบบโอนยังปิดอยู่ · ยอด CARBX ของคุณยังปลอดภัย และยังไม่มีการโอนเกิดขึ้น";$("transferButton").disabled=!enabled;$("transferButton").textContent=enabled?"ตรวจสอบและโอน CARBX":"ระบบโอนยังไม่เปิด"}
  if(!referralRows.error){const rows=referralRows.data||[],paid=rows.filter(x=>x.status==="rewarded").length;$("referralSummary").innerHTML='<div><strong>เพื่อนที่สมัครผ่านลิงก์</strong><small>'+rows.length+' บัญชี · อนุมัติและจ่ายรางวัลแล้ว '+paid+' บัญชี</small></div><div class="amount plus">+'+fmt(paid*1000)+' CARBX</div>'}
  if(!tx.error&&!rewards.error){
