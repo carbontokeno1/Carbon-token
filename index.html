@@ -548,7 +548,7 @@ async function loadData(user){
  for(const x of [wallet,tx,rewards,impacts,energy,inst,transferState,solarSummary])if(x.error)throw x.error;
  const transferEnabled=transferState.data===true;$("transferNotice").textContent=transferEnabled?"ระบบโอนภายในเปิดใช้งานแล้ว · ตรวจสอบอีเมลและยอดก่อนยืนยันทุกครั้ง":"ระบบโอนยังปิดอยู่ · ยอด CARBX ของคุณยังปลอดภัย และยังไม่มีการโอนเกิดขึ้น";$("transferButton").disabled=!transferEnabled;$("transferButton").textContent=transferEnabled?"ตรวจสอบและโอน CARBX":"ระบบโอนยังไม่เปิด";
  const w=wallet.data||{};$("balance").textContent=fmt(w.available_balance);$("available").textContent=fmt(w.available_balance);$("locked").textContent=fmt(w.locked_balance);$("member").textContent=p.display_name||user.email||"สมาชิก CARBON TOKEN";$("memberstatus").textContent="สถานะ: "+(p.member_status||"รอตรวจสอบ");$("pname").textContent=p.display_name||"ยังไม่ได้ตั้งชื่อ";$("profileName").value=p.display_name||"";$("pemail").textContent=p.email||user.email||"—";$("pdate").textContent=date(p.created_at);$("pid").textContent=p.member_code||"—";
- const referralUrl=window.location.origin+"/?ref="+encodeURIComponent(p.member_code||"");
+ const referralUrl="https://max.carbontokeno1.workers.dev/?ref="+encodeURIComponent(p.member_code||"");
  $("memberReferralUrl").value=referralUrl;
  const referralRows=await db.from("member_referrals").select("id,status,created_at,paid_at").eq("referrer_id",uid).order("created_at",{ascending:false}).limit(100);
  if(referralRows.error)throw referralRows.error;
