@@ -185,6 +185,13 @@ body:before,body:after{content:none!important;display:none!important;background:
 .logo:before{animation:carbxHeaderOrbit 4.6s linear infinite!important}
 .logo:after{animation:carbxHeaderRing 2.9s ease-in-out infinite!important}
 
+
+/* RELEASE 27 — restore continuous CARBX motion inside the system audit screen.
+   Keep the page background and audit panels static. */
+.carbx-orbit-logo{animation:carbx-breathe 3.6s ease-in-out infinite!important;transform-origin:center}
+.carbx-orbit-satellite{animation-name:carbx-orbit!important;animation-timing-function:linear!important;animation-iteration-count:infinite!important}
+.carbx-orbit-satellite.s2{animation-duration:5s!important;animation-direction:reverse!important}
+.carbx-orbit-satellite.s3{animation-duration:11s!important}
 </style>
 </head>
 <body>
