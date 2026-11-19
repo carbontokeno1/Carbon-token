@@ -1,7 +1,7 @@
 {
   "name": "CARBX.APP · CARBONTOKEN",
   "short_name": "CARBX.APP",
-  "start_url": "/?release=31",
+  "start_url": "/?release=32",
   "display": "standalone",
   "background_color": "#07130f",
   "theme_color": "#07130f",
