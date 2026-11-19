@@ -1,9 +1,11 @@
 {
   "name": "CARBONTOKEN",
   "short_name": "CARBONTOKEN",
-  "start_url": "/?release=28",
+  "start_url": "/?release=29",
   "display": "standalone",
   "background_color": "#07130f",
   "theme_color": "#07130f",
-  "icons": []
+  "icons": [],
+  "id": "/",
+  "scope": "/"
 }
